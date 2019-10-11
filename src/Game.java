@@ -18,17 +18,15 @@ public class Game extends Canvas implements Runnable
     private Thread thread;
     private boolean running = false;
 
-    private Handler handler;
+    private FootballGameManager gameManager;
 
     public Game()
     {
 
-        handler = new Handler();
+        gameManager = new FootballGameManager(this, 10);
         new Window(WIDTH, HEIGHT, "Circle Football", this);
         //this.addKeyListener(new KeyInput(handler));
 
-        FootballPlayer samplePlayer = new FootballPlayer(WIDTH/2, HEIGHT/2, ID.Player);
-        handler.addObject(samplePlayer);
 
     }
 
@@ -84,7 +82,7 @@ public class Game extends Canvas implements Runnable
 
     private void tick()
     {
-        handler.tick();
+        gameManager.tick();
     }
 
     private void render()
@@ -99,7 +97,7 @@ public class Game extends Canvas implements Runnable
 
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
-        handler.render(g);
+        gameManager.render(g);
 
         g.dispose();
         bs.show();
