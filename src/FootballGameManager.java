@@ -27,14 +27,14 @@ public class FootballGameManager
     {
         double randomX, randomY;
         // The player can spawn anywhere on the field such that it is not overlapping with the border
-        double spawnableWidth = this.theGame.getWidth() - 2*this.playerRadius;
-        double spawnableHeight = this.theGame.getHeight() - 2*this.playerRadius;
+        double spawnableWidth = this.theGame.getWidth() - 4*this.playerRadius;
+        double spawnableHeight = this.theGame.getHeight() - 4*this.playerRadius;
         ArrayList<FootballPlayer> players = new ArrayList<FootballPlayer>();
         for(int i = 0; i < numPlayers; i++)
         {
-            randomX = Math.random()*spawnableWidth + this.playerRadius;
-            randomY = Math.random()*spawnableHeight + this.playerRadius;
-            players.add(new FootballPlayer(randomX, randomY, ID.Player, this.playerRadius, color));
+            randomX = Math.random()*spawnableWidth + 2*this.playerRadius;
+            randomY = Math.random()*spawnableHeight + 2*this.playerRadius;
+            players.add(new FootballPlayer(this, randomX, randomY, ID.Player, this.playerRadius, color, 2));
         }
 
         return players;
