@@ -103,6 +103,16 @@ public class Game extends Canvas implements Runnable
         bs.show();
     }
 
+    public int getWidth()
+    {
+        return WIDTH;
+    }
+
+    public int getHeight()
+    {
+        return HEIGHT;
+    }
+
     public static void main(String[] args)
     {
         new Game();
