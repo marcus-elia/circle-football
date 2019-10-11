@@ -84,6 +84,7 @@ public class FootballPlayer extends GameObject
 		} else {
 			this.speed = 0;
 		}
+		setDxDy();
 	}
 
 	public void newRandomTarget()
