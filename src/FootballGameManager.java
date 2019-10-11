@@ -12,11 +12,11 @@ public class FootballGameManager
     {
         this.theGame = inputGame;
         this.playerRadius = inputRadius;
-        this.leftTeam = createTeam(5);
-        this.rightTeam = createTeam(5);
+        this.leftTeam = createTeam(5, Color.RED);
+        this.rightTeam = createTeam(5, Color.BLUE);
     }
 
-    public ArrayList<FootballPlayer> createTeam(int numPlayers)
+    public ArrayList<FootballPlayer> createTeam(int numPlayers, Color color)
     {
         double randomX, randomY;
         // The player can spawn anywhere on the field such that it is not overlapping with the border
@@ -27,7 +27,7 @@ public class FootballGameManager
         {
             randomX = Math.random()*spawnableWidth + this.playerRadius;
             randomY = Math.random()*spawnableHeight + this.playerRadius;
-            players.add(new FootballPlayer(randomX, randomY, ID.Player, this.playerRadius));
+            players.add(new FootballPlayer(randomX, randomY, ID.Player, this.playerRadius, color));
         }
 
         return players;
