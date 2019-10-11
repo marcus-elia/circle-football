@@ -98,8 +98,7 @@ public class FootballGameManager
                 FootballPlayer p2 = leftTeam.get(j);
                 if(areColliding(p1, p2))
                 {
-                    p1.setSpeed(0);
-                    p2.setSpeed(0);
+					collisionReaction(p1, p2);
                 }
             }
         }
@@ -113,8 +112,7 @@ public class FootballGameManager
                 FootballPlayer p2 = rightTeam.get(j);
                 if(areColliding(p1, p2))
                 {
-                    p1.setSpeed(0);
-                    p2.setSpeed(0);
+					collisionReaction(p1, p2);
                 }
             }
         }
@@ -128,10 +126,17 @@ public class FootballGameManager
                 FootballPlayer p2 = rightTeam.get(j);
                 if(areColliding(p1, p2))
                 {
-                    p1.setSpeed(0);
-                    p2.setSpeed(0);
+					collisionReaction(p1, p2);
                 }
             }
         }
     }
+
+    public void collisionReaction(FootballPlayer p1, FootballPlayer p2)
+	{
+		double p1Angle = Math.cos(Math.atan2(p1.getY() - p2.getY(), p1.getX() - p2.getY()) + (Math.PI/2));
+		p1.setTarget(Math.cos(p1Angle) * 40, Math.sin(p1Angle) * 40);
+		double p2Angle = Math.atan2(p1.getY() - p2.getY(), p1.getX() - p2.getY());
+		p2.setTarget(Math.cos(p2Angle) * 40, Math.sin(p2Angle) * 40);
+	}
 }

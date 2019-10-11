@@ -71,6 +71,23 @@ public class FootballPlayer extends GameObject
 		this.setDxDy();
 	}
 
+	public void setAngle(double angle)
+	{
+    	if (angle > 2 * Math.PI)
+    	{
+    		this.angle = 2 * Math.PI;
+		}
+    	else if (angle < 0)
+		{
+			this.angle = 0;
+		}
+    	else
+		{
+			this.angle = angle;
+		}
+		this.setDxDy();
+	}
+
 	public void setDxDy()
 	{
 		this.dx = this.speed * Math.cos(this.angle);
@@ -91,6 +108,27 @@ public class FootballPlayer extends GameObject
 	{
 		this.targetX = Math.random()*(this.manager.getWidth() - 4*this.radius) + 2*this.radius;
 		this.targetY = Math.random()*(this.manager.getHeight() - 4*this.radius) + 2*this.radius;
+	}
+
+	public void setTarget(double x, double y)
+	{
+		if (x > manager.getWidth())
+		{
+			targetX = manager.getWidth();
+		}
+		else if (x < 0)
+		{
+			targetX = 0;
+		}
+		if (y > manager.getHeight())
+		{
+			targetY = manager.getHeight();
+		}
+		else if (y < 0)
+		{
+			targetY = 0;
+		}
+		this.setAngle();
 	}
 
 }
