@@ -52,6 +52,16 @@ public class FootballGameManager
         }
     }
 
+    public double getWidth()
+	{
+    	return this.theGame.getWidth();
+	}
+
+	public double getHeight()
+	{
+    	return this.theGame.getHeight();
+	}
+
     public void render(Graphics2D g2d)
     {
         // Draw the goal lines
