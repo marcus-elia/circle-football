@@ -30,6 +30,7 @@ public class FootballPlayer extends GameObject
         this.rand = new Random();
         this.color = color;
         this.speed = speed;
+        this.newRandomTarget();
     }
 
     public boolean isCollided(FootballPlayer otherPlayer)
@@ -40,23 +41,17 @@ public class FootballPlayer extends GameObject
 
     public void tick()
     {
-    	if (!this.collided) {
-			if (this.rand.nextBoolean())//true x or false y
-			{
-				if (this.rand.nextBoolean()) //true positive or false negative
-				{
-					this.setX(this.getX() + 1);
-				} else {
-					this.setX(this.getX() - 1);
-				}
-			} else {
-				if (this.rand.nextBoolean()) //true positive or false negative
-				{
-					this.setY(this.getY() + 1); //Positive y is down
-				} else {
-					this.setY(this.getY() - 1);
-				}
-			}
+		if (FootballPlayer.distance(this.getX(), this.getY(), targetX, targetY) > this.speed)
+		{
+			this.setX(this.getX() + this.getDX());
+			this.setY(this.getY() + this.getDY());
+		} else
+		{
+			this.setX(targetX);
+			this.setY(targetY);
+			this.newRandomTarget();
+
+
 		}
     }
 
@@ -71,4 +66,11 @@ public class FootballPlayer extends GameObject
 	{
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 	}
+
+	public void newRandomTarget()
+	{
+		this.targetX = Math.random()*(this.manager.getWidth() - 4*this.radius) + 2*this.radius;
+		this.targetY = Math.random()*(this.manager.getHeight() - 4*this.radius) + 2*this.radius;
+	}
+
 }
