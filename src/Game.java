@@ -20,6 +20,9 @@ public class Game extends Canvas implements Runnable
 
     private Handler handler;
 
+    private FootballPlayer otherPlayer;
+    private FootballPlayer samplePlayer;
+
     public Game()
     {
 
@@ -27,8 +30,11 @@ public class Game extends Canvas implements Runnable
         new Window(WIDTH, HEIGHT, "Circle Football", this);
         //this.addKeyListener(new KeyInput(handler));
 
-        FootballPlayer samplePlayer = new FootballPlayer(WIDTH/2, HEIGHT/2, ID.Player);
+        FootballPlayer samplePlayer = new FootballPlayer(WIDTH/2, HEIGHT/2, ID.Player, 10);
         handler.addObject(samplePlayer);
+
+        otherPlayer = new FootballPlayer( WIDTH/2 -100, HEIGHT/2, ID.Player, 10);
+        handler.addObject(otherPlayer);
 
     }
 
@@ -77,7 +83,9 @@ public class Game extends Canvas implements Runnable
                 timer += 1000;
                 System.out.println("FPS: "+ frames);
                 frames = 0;
+                System.out.println(otherPlayer.isCollided(samplePlayer));
             }
+
         }
         stop();
     }
