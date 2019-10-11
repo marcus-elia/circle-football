@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Game extends Canvas implements Runnable
 {
-    public static final int WIDTH = 550, HEIGHT = WIDTH/1;
+    public static final int WIDTH = 768, HEIGHT = WIDTH/2;
     private Thread thread;
     private boolean running = false;
 
@@ -27,6 +27,8 @@ public class Game extends Canvas implements Runnable
         new Window(WIDTH, HEIGHT, "Circle Football", this);
         //this.addKeyListener(new KeyInput(handler));
 
+        FootballPlayer samplePlayer = new FootballPlayer(WIDTH/2, HEIGHT/2, ID.Player);
+        handler.addObject(samplePlayer);
 
     }
 
@@ -73,7 +75,7 @@ public class Game extends Canvas implements Runnable
             if(System.currentTimeMillis() - timer > 1000)
             {
                 timer += 1000;
-                //System.out.println("FPS: "+ frames);
+                System.out.println("FPS: "+ frames);
                 frames = 0;
             }
         }
