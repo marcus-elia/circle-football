@@ -24,27 +24,10 @@ public class Game extends Canvas implements Runnable
     {
 
         handler = new Handler();
-        new Window(WIDTH, HEIGHT, "Prequel", this);
-        this.addKeyListener(new KeyInput(handler));
+        new Window(WIDTH, HEIGHT, "Circle Football", this);
+        //this.addKeyListener(new KeyInput(handler));
 
-        // the Road Map parameters
-        double averageRoadLength = 100;
-        double minIntersectionDistance = 50;
-        double perpendicularity = .8;
-        int maxNumRoads = 300;
-        double carsPerRoad = .15;
-        double intersectionLockOnDistance = 20;
-        int ticksPerRoad = 20;
 
-        // the Road map object
-        RoadMap rm = new RoadMap(0, 0, ID.Map, averageRoadLength, minIntersectionDistance,
-                perpendicularity, maxNumRoads, carsPerRoad, intersectionLockOnDistance,
-                ticksPerRoad);
-
-        // start with just an intersection in the middle
-        Intersection intsec = new Intersection(WIDTH/2, HEIGHT/2, ID.Intersection, rm);
-        rm.addIntersection(intsec);
-        handler.addObject(rm);
     }
 
     public synchronized void start()
