@@ -8,12 +8,19 @@ public class FootballGameManager
     private ArrayList<FootballPlayer> leftTeam;
     private ArrayList<FootballPlayer> rightTeam;
 
+    private int endZoneWidth;
+
+    // Stores the current line of scrimmage
+    private double lineOfScrimmage;
+
     public FootballGameManager(Game inputGame, double inputRadius)
     {
         this.theGame = inputGame;
         this.playerRadius = inputRadius;
         this.leftTeam = createTeam(5, Color.RED);
         this.rightTeam = createTeam(5, Color.BLUE);
+        this.lineOfScrimmage = this.theGame.getWidth() / 2;
+        this.endZoneWidth = 60;
     }
 
     public ArrayList<FootballPlayer> createTeam(int numPlayers, Color color)
@@ -47,6 +54,13 @@ public class FootballGameManager
 
     public void render(Graphics2D g2d)
     {
+        // Draw the goal lines
+        int height = this.theGame.getHeight();
+        int width = this.theGame.getWidth();
+        g2d.setColor(Color.WHITE);
+        g2d.drawLine(this.endZoneWidth, 0, this.endZoneWidth, height);
+        g2d.drawLine(width - this.endZoneWidth, 0, width - this.endZoneWidth, this.theGame.getHeight());
+
         for(FootballPlayer curPlayer : leftTeam)
         {
             curPlayer.render(g2d);
