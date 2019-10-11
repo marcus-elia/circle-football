@@ -50,6 +50,7 @@ public class FootballGameManager
         {
             curPlayer.tick();
         }
+        this.checkCollisions();
     }
 
     public double getWidth()
