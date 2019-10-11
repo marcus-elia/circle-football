@@ -58,7 +58,7 @@ public class FootballPlayer extends GameObject
     public void render(Graphics2D g2d)
     {
         g2d.setColor(this.color);
-        Shape circle = new Ellipse2D.Double(this.x, this.y, radius * 2, radius * 2);
+        Shape circle = new Ellipse2D.Double(this.x - radius, this.y - radius, radius * 2, radius * 2);
         g2d.fill(circle);
     }
 
