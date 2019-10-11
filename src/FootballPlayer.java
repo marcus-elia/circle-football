@@ -31,6 +31,7 @@ public class FootballPlayer extends GameObject
         this.color = color;
         this.speed = speed;
         this.newRandomTarget();
+        this.setAngle();
     }
 
     public boolean isCollided(FootballPlayer otherPlayer)
@@ -50,8 +51,7 @@ public class FootballPlayer extends GameObject
 			this.setX(targetX);
 			this.setY(targetY);
 			this.newRandomTarget();
-
-
+			this.setAngle();
 		}
     }
 
@@ -65,6 +65,18 @@ public class FootballPlayer extends GameObject
     public static double distance(double x1, double y1, double x2, double y2)
 	{
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+	}
+
+	public void setAngle()
+	{
+		this.angle = Math.atan2(this.targetY - this.y, this.targetX - this.x);
+		this.setDxDy();
+	}
+
+	public void setDxDy()
+	{
+		this.dx = this.speed * Math.cos(this.angle);
+		this.dy = this.speed * Math.sin(this.angle);
 	}
 
 	public void newRandomTarget()
