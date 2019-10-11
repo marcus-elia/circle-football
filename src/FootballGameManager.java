@@ -39,11 +39,19 @@ public class FootballGameManager
         {
             curPlayer.tick();
         }
+        for(FootballPlayer curPlayer : rightTeam)
+        {
+            curPlayer.tick();
+        }
     }
 
     public void render(Graphics2D g2d)
     {
         for(FootballPlayer curPlayer : leftTeam)
+        {
+            curPlayer.render(g2d);
+        }
+        for(FootballPlayer curPlayer : rightTeam)
         {
             curPlayer.render(g2d);
         }
