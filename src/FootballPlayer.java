@@ -13,12 +13,23 @@ public class FootballPlayer extends GameObject
 	private boolean collided;
 	private Color color; //The color of the player
 
-    public FootballPlayer(double inputX, double inputY, ID id, double radius, Color color)
+    private FootballGameManager manager;
+
+    private double speed;
+    private double angle;
+
+    private double targetX;
+    private double targetY;
+
+    public FootballPlayer(FootballGameManager inputManager,
+                          double inputX, double inputY, ID id, double radius, Color color, double speed)
     {
         super(inputX, inputY, id);
+        this.manager = inputManager;
         this.radius = radius;
         this.rand = new Random();
         this.color = color;
+        this.speed = speed;
     }
 
     public boolean isCollided(FootballPlayer otherPlayer)
