@@ -10,7 +10,6 @@ public class FootballPlayer extends GameObject
 {
 	private double radius; //The radius of the player
 	private static Random rand;	//RNG for movement
-	private boolean collided;
 	private Color color; //The color of the player
 
     private FootballGameManager manager;
@@ -36,7 +35,6 @@ public class FootballPlayer extends GameObject
 
     public boolean isCollided(FootballPlayer otherPlayer)
 	{
-		this.collided = radius > FootballPlayer.distance(this.getX(), this.getY(), otherPlayer.getX(), otherPlayer.getY());
 		return radius > FootballPlayer.distance(this.getX(), this.getY(), otherPlayer.getX(), otherPlayer.getY());
 	}
 
@@ -77,6 +75,15 @@ public class FootballPlayer extends GameObject
 	{
 		this.dx = this.speed * Math.cos(this.angle);
 		this.dy = this.speed * Math.sin(this.angle);
+	}
+
+	public void setSpeed(double speed)
+	{
+		if (speed >= 0) {
+			this.speed = speed;
+		} else {
+			this.speed = 0;
+		}
 	}
 
 	public void newRandomTarget()
