@@ -134,9 +134,9 @@ public class FootballGameManager
 
     public void collisionReaction(FootballPlayer p1, FootballPlayer p2)
 	{
-		double p1Angle = Math.cos(Math.atan2(p1.getY() - p2.getY(), p1.getX() - p2.getY()) + (Math.PI/2));
-		p1.setTarget(Math.cos(p1Angle) * 40, Math.sin(p1Angle) * 40);
+		double p1Angle = Math.atan2(p1.getY() - p2.getY(), p1.getX() - p2.getY()) + Math.PI/2;
+		p1.setTarget(p1.getX() + Math.cos(p1Angle) * 20, p1.getY() + Math.sin(p1Angle) * 20);
 		double p2Angle = Math.atan2(p1.getY() - p2.getY(), p1.getX() - p2.getY());
-		p2.setTarget(Math.cos(p2Angle) * 40, Math.sin(p2Angle) * 40);
+		p2.setTarget(p2.getX() + Math.cos(p2Angle) * 20, p2.getY() + Math.sin(p2Angle) * 20);
 	}
 }
