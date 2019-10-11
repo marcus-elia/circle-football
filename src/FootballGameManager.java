@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 
 public class FootballGameManager
@@ -30,5 +31,21 @@ public class FootballGameManager
         }
 
         return players;
+    }
+
+    public void tick()
+    {
+        for(FootballPlayer curPlayer : leftTeam)
+        {
+            curPlayer.tick();
+        }
+    }
+
+    public void render(Graphics2D g2d)
+    {
+        for(FootballPlayer curPlayer : leftTeam)
+        {
+            curPlayer.render(g2d);
+        }
     }
 }
