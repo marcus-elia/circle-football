@@ -80,4 +80,57 @@ public class FootballGameManager
             curPlayer.render(g2d);
         }
     }
+
+    public boolean areColliding(FootballPlayer p1, FootballPlayer p2)
+    {
+        return p1.isCollided(p2);
+    }
+
+    public void checkCollisions()
+    {
+        // Left colliding left
+        for(int i = 0; i < leftTeam.size(); i++)
+        {
+            for(int j = i + 1; j < leftTeam.size(); j++)
+            {
+                FootballPlayer p1 = leftTeam.get(i);
+                FootballPlayer p2 = leftTeam.get(j);
+                if(areColliding(p1, p2))
+                {
+                    p1.setSpeed(0);
+                    p2.setSpeed(0);
+                }
+            }
+        }
+
+        // Left colliding right
+        for(int i = 0; i < leftTeam.size(); i++)
+        {
+            for(int j = 0; j < rightTeam.size(); j++)
+            {
+                FootballPlayer p1 = leftTeam.get(i);
+                FootballPlayer p2 = rightTeam.get(j);
+                if(areColliding(p1, p2))
+                {
+                    p1.setSpeed(0);
+                    p2.setSpeed(0);
+                }
+            }
+        }
+
+        // Right colliding right
+        for(int i = 0; i < rightTeam.size(); i++)
+        {
+            for(int j = i + 1; j < rightTeam.size(); j++)
+            {
+                FootballPlayer p1 = rightTeam.get(i);
+                FootballPlayer p2 = rightTeam.get(j);
+                if(areColliding(p1, p2))
+                {
+                    p1.setSpeed(0);
+                    p2.setSpeed(0);
+                }
+            }
+        }
+    }
 }
