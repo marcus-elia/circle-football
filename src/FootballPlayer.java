@@ -77,6 +77,15 @@ public class FootballPlayer extends GameObject
 		this.dy = this.speed * Math.sin(this.angle);
 	}
 
+	public void setSpeed(double speed)
+	{
+		if (speed >= 0) {
+			this.speed = speed;
+		} else {
+			this.speed = 0;
+		}
+	}
+
 	public void newRandomTarget()
 	{
 		this.targetX = Math.random()*(this.manager.getWidth() - 4*this.radius) + 2*this.radius;
