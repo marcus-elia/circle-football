@@ -20,6 +20,15 @@ public class FootballPlayer extends GameObject
     private double targetX;
     private double targetY;
 
+
+    // If the player is currently bouncing (after a collision)
+	private boolean isBouncing;
+    // The number of ticks that the player has currently spent bouncing
+    private int curBounceTime;
+    // The number of ticks the player bounces for before returning to
+	// going toward the target
+    private int recoveryTime;
+
     public FootballPlayer(FootballGameManager inputManager,
                           double inputX, double inputY, ID id, double radius, Color color, double speed)
     {
@@ -31,15 +40,27 @@ public class FootballPlayer extends GameObject
         this.speed = speed;
         this.newRandomTarget();
         this.setAngle();
+
+        this.isBouncing = false;
+        this.curBounceTime = 0;
+        this.recoveryTime = 50;
+
     }
 
-    public boolean isCollided(FootballPlayer otherPlayer)
-	{
-		return FootballPlayer.distance(this.x, this.y, otherPlayer.getX(), otherPlayer.getY()) < 2*this.radius;
-	}
+
 
     public void tick()
     {
+    	// If the player is still reacting to a collision
+		if(this.isBouncing)
+		{
+			this.curBounceTime++;
+			if(this.curBounceTime == this.recoveryTime)
+			{
+				this.isBouncing = false;
+			}
+		}
+		
 		if (FootballPlayer.distance(this.getX(), this.getY(), targetX, targetY) > this.speed)
 		{
 			this.setX(this.getX() + this.getDX());
@@ -143,6 +164,17 @@ public class FootballPlayer extends GameObject
 	public double getAngle()
 	{
 		return this.angle;
+	}
+
+	public void startBouncing()
+	{
+		this.isBouncing = true;
+		this.curBounceTime = 0;
+	}
+
+	public boolean isCollided(FootballPlayer otherPlayer)
+	{
+		return FootballPlayer.distance(this.x, this.y, otherPlayer.getX(), otherPlayer.getY()) < 2*this.radius;
 	}
 
 }
