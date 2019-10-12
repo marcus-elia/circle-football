@@ -35,7 +35,7 @@ public class FootballPlayer extends GameObject
 
     public boolean isCollided(FootballPlayer otherPlayer)
 	{
-		return radius > FootballPlayer.distance(this.getX(), this.getY(), otherPlayer.getX(), otherPlayer.getY());
+		return FootballPlayer.distance(this.x, this.y, otherPlayer.getX(), otherPlayer.getY()) < 2*this.radius;
 	}
 
     public void tick()
