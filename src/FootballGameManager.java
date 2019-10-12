@@ -189,6 +189,5 @@ public class FootballGameManager
         }
         fp1.setTarget(targetXP1, targetYP1);
         fp2.setTarget(targetXP2, targetYP2);
-        System.out.println("(" + targetXP1 + ", " + targetYP1 + ")  (" + targetXP2 + ", " + targetYP2 + ")");
     }
 }
