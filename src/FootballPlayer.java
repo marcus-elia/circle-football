@@ -108,25 +108,34 @@ public class FootballPlayer extends GameObject
 	{
 		this.targetX = Math.random()*(this.manager.getWidth() - 4*this.radius) + 2*this.radius;
 		this.targetY = Math.random()*(this.manager.getHeight() - 4*this.radius) + 2*this.radius;
+		this.setAngle();
 	}
 
 	public void setTarget(double x, double y)
 	{
-		if (x > manager.getWidth())
+		if (x > manager.getWidth() - 2*radius)
 		{
-			targetX = manager.getWidth();
+			targetX = manager.getWidth() - 2*radius;
 		}
-		else if (x < 0)
+		else if (x < 0 + 2*radius)
 		{
-			targetX = 0;
+			targetX = 0 + 2*radius;
 		}
-		if (y > manager.getHeight())
+		else
 		{
-			targetY = manager.getHeight();
+			this.targetX = x;
 		}
-		else if (y < 0)
+		if (y > manager.getHeight() - 2*radius)
 		{
-			targetY = 0;
+			targetY = manager.getHeight() - 2*radius;
+		}
+		else if (y < 0 + 2*radius)
+		{
+			targetY = 0 + 2*radius;
+		}
+		else
+		{
+			this.targetY = y;
 		}
 		this.setAngle();
 	}
