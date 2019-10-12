@@ -131,4 +131,9 @@ public class FootballPlayer extends GameObject
 		this.setAngle();
 	}
 
+	public double getAngle()
+	{
+		return this.angle;
+	}
+
 }
