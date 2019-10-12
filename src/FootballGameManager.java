@@ -161,6 +161,11 @@ public class FootballGameManager
 
         //If the signs of dx or dy are different between the two players then they should be swapped
         //eg -dx and +dx means +dx and -dx, but -dx and -dx means -dx and -dx
+		//Should look fine as long the players collide head-on
+		//I saw a few players get stuck together. I'm guessing that's because this method kept getting called and
+		//changing their target coordinates
+		//I still don't know why some players don't react to collisions. This method does get called when that happens.
+        //Doesn't work if the signs of both dx and dy are the same, ie the players are headed in the same general direction
         double targetXP1;
         double targetXP2;
         double targetYP1;
@@ -191,3 +196,4 @@ public class FootballGameManager
         fp2.setTarget(targetXP2, targetYP2);
     }
 }
+

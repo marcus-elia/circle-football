@@ -113,25 +113,25 @@ public class FootballPlayer extends GameObject
 
 	public void setTarget(double x, double y)
 	{
-		if (x > manager.getWidth())
+		if (x > manager.getWidth() - 2*radius)
 		{
-			targetX = manager.getWidth();
+			targetX = manager.getWidth() - 2*radius;
 		}
-		else if (x < 0)
+		else if (x < 0 + 2*radius)
 		{
-			targetX = 0;
+			targetX = 0 + 2*radius;
 		}
 		else
 		{
 			this.targetX = x;
 		}
-		if (y > manager.getHeight())
+		if (y > manager.getHeight() - 2*radius)
 		{
-			targetY = manager.getHeight();
+			targetY = manager.getHeight() - 2*radius;
 		}
-		else if (y < 0)
+		else if (y < 0 + 2*radius)
 		{
-			targetY = 0;
+			targetY = 0 + 2*radius;
 		}
 		else
 		{
