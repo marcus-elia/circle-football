@@ -98,7 +98,8 @@ public class FootballGameManager
                 FootballPlayer p2 = leftTeam.get(j);
                 if(areColliding(p1, p2))
                 {
-					collisionReaction(p1, p2);
+                    //collisionReaction(p1, p2);
+                    collide(p1, p2);
                 }
             }
         }
@@ -112,7 +113,8 @@ public class FootballGameManager
                 FootballPlayer p2 = rightTeam.get(j);
                 if(areColliding(p1, p2))
                 {
-					collisionReaction(p1, p2);
+                    //collisionReaction(p1, p2);
+                    collide(p1, p2);
                 }
             }
         }
@@ -126,12 +128,14 @@ public class FootballGameManager
                 FootballPlayer p2 = rightTeam.get(j);
                 if(areColliding(p1, p2))
                 {
-					collisionReaction(p1, p2);
+					//collisionReaction(p1, p2);
+                    collide(p1, p2);
                 }
             }
         }
     }
 
+    // Ryan's original version
     public void collisionReaction(FootballPlayer p1, FootballPlayer p2)
 	{
 		double p1Angle = Math.atan2(p1.getY() - p2.getY(), p1.getX() - p2.getY()) + Math.PI/2;
@@ -139,4 +143,19 @@ public class FootballGameManager
 		double p2Angle = Math.atan2(p1.getY() - p2.getY(), p1.getX() - p2.getY());
 		p2.setTarget(p2.getX() + Math.cos(p2Angle) * 20, p2.getY() + Math.sin(p2Angle) * 20);
 	}
+
+	// Suppose that an object is bouncing off a wall, and it is coming in at an angle of
+    // incoming angle.  This reflects it across the imaginary line of the fixedAngle
+	public double reflectAngle(double incomingAngle, double fixedAngle)
+    {
+        return fixedAngle + (fixedAngle - incomingAngle);
+    }
+
+	public void collide(FootballPlayer fp1, FootballPlayer fp2)
+    {
+        double angleBetween = Math.atan2(fp2.getY() - fp1.getY(), fp2.getX() - fp1.getX());
+        fp1.setAngle(reflectAngle(fp1.getAngle(), angleBetween));
+        angleBetween += Math.PI;
+        fp2.setAngle(reflectAngle(fp2.getAngle(), angleBetween));
+    }
 }
