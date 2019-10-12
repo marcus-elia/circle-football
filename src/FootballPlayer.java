@@ -108,6 +108,7 @@ public class FootballPlayer extends GameObject
 	{
 		this.targetX = Math.random()*(this.manager.getWidth() - 4*this.radius) + 2*this.radius;
 		this.targetY = Math.random()*(this.manager.getHeight() - 4*this.radius) + 2*this.radius;
+		this.setAngle();
 	}
 
 	public void setTarget(double x, double y)
@@ -120,6 +121,10 @@ public class FootballPlayer extends GameObject
 		{
 			targetX = 0;
 		}
+		else
+		{
+			this.targetX = x;
+		}
 		if (y > manager.getHeight())
 		{
 			targetY = manager.getHeight();
@@ -127,6 +132,10 @@ public class FootballPlayer extends GameObject
 		else if (y < 0)
 		{
 			targetY = 0;
+		}
+		else
+		{
+			this.targetY = y;
 		}
 		this.setAngle();
 	}

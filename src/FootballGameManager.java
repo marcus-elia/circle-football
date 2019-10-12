@@ -153,9 +153,42 @@ public class FootballGameManager
 
 	public void collide(FootballPlayer fp1, FootballPlayer fp2)
     {
-        double angleBetween = Math.atan2(fp2.getY() - fp1.getY(), fp2.getX() - fp1.getX());
+        /* double angleBetween = Math.atan2(fp2.getY() - fp1.getY(), fp2.getX() - fp1.getX());
         fp1.setAngle(reflectAngle(fp1.getAngle(), angleBetween));
         angleBetween += Math.PI;
         fp2.setAngle(reflectAngle(fp2.getAngle(), angleBetween));
+        */
+
+        //If the signs of dx or dy are different between the two players then they should be swapped
+        //eg -dx and +dx means +dx and -dx, but -dx and -dx means -dx and -dx
+        double targetXP1;
+        double targetXP2;
+        double targetYP1;
+        double targetYP2;
+        //Determine x
+        if ((fp1.getDX() > 0 && fp2.getDX() < 0) || (fp1.getDX() < 0 && fp2.getDX() > 0))
+        {
+            targetXP1 = fp1.getX() + fp1.getDX()*-30;
+            targetXP2 = fp2.getX() + fp2.getDX()*-30;
+        }
+        else
+        {
+            targetXP1 = fp1.getX() + fp1.getDX()*30;
+            targetXP2 = fp2.getX() + fp2.getDX()*30;
+        }
+        //Determine y
+        if ((fp1.getDY() > 0 && fp2.getDY() < 0) || (fp1.getDY() < 0 && fp2.getDY() > 0))
+        {
+            targetYP1 = fp1.getY() + fp1.getDY()*-30;
+            targetYP2 = fp2.getY() + fp2.getDY()*-30;
+        }
+        else
+        {
+            targetYP1 = fp1.getY() + fp1.getDY()*30;
+            targetYP2 = fp2.getY() + fp2.getDY()*30;
+        }
+        fp1.setTarget(targetXP1, targetYP1);
+        fp2.setTarget(targetXP2, targetYP2);
+        System.out.println("(" + targetXP1 + ", " + targetYP1 + ")  (" + targetXP2 + ", " + targetYP2 + ")");
     }
 }
