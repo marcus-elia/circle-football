@@ -94,18 +94,7 @@ public class FootballPlayer extends GameObject
 
 	public void setAngle(double angle)
 	{
-    	if (angle > 2 * Math.PI)
-    	{
-    		this.angle = 2 * Math.PI;
-		}
-    	else if (angle < 0)
-		{
-			this.angle = 0;
-		}
-    	else
-		{
-			this.angle = angle;
-		}
+    	this.angle = angle;
 		this.setDxDy();
 	}
 
