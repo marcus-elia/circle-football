@@ -36,7 +36,7 @@ public class RandomBouncer extends FootballPlayer
             this.y = this.manager.getHeight() - this.radius;
             this.dy = -this.dy;
         }
-
+        this.angle = Math.atan2(this.dy, this.dx);
         this.x += this.dx;
         this.y += this.dy;
     }
