@@ -16,12 +16,24 @@ public class RandomBouncer extends FootballPlayer
     // This just bounces if it hits a wall.
     public void tick()
     {
-        if(this.x < this.radius || this.x > this.manager.getWidth() - this.radius)
+        if(this.x < this.radius) // hitting the left
         {
+            this.x = this.radius;
             this.dx = -this.dx;
         }
-        if(this.y < this.radius || this.y > this.manager.getHeight() - this.radius)
+        else if(this.x > this.manager.getWidth() - this.radius) // hitting the right
         {
+            this.x = this.manager.getWidth() - this.radius;
+            this.dx = -this.dx;
+        }
+        if(this.y < this.radius) // hitting the top
+        {
+            this.y = this.radius;
+            this.dy = -this.dy;
+        }
+        else if(this.y > this.manager.getHeight() - this.radius) // hitting the bottom
+        {
+            this.y = this.manager.getHeight() - this.radius;
             this.dy = -this.dy;
         }
 
