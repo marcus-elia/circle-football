@@ -8,14 +8,14 @@ import java.util.Random;
 
 public class FootballPlayer extends GameObject
 {
-	private double radius; //The radius of the player
+	protected double radius; //The radius of the player
 	private static Random rand;	//RNG for movement
-	private Color color; //The color of the player
+	protected Color color; //The color of the player
 
-    private FootballGameManager manager;
+    protected FootballGameManager manager;
 
-    private double speed;
-    private double angle;
+    protected double speed;
+    protected double angle;
 
     private double targetX;
     private double targetY;
@@ -60,7 +60,7 @@ public class FootballPlayer extends GameObject
 				this.isBouncing = false;
 			}
 		}
-		
+
 		if (FootballPlayer.distance(this.getX(), this.getY(), targetX, targetY) > this.speed)
 		{
 			this.setX(this.getX() + this.getDX());
