@@ -13,10 +13,9 @@ public class RandomBouncer extends FootballPlayer
     {
         super(inputManager, inputX, inputY, id, radius, color, speed);
         this.setAngle(Math.random() * 2*Math.PI);
-        this.radius = radius;
-        this.manager = inputManager;
     }
 
+    // This just bounces if it hits a wall.
     public void tick()
     {
         if(this.x < this.radius || this.x > this.manager.getWidth() - this.radius)
@@ -30,5 +29,19 @@ public class RandomBouncer extends FootballPlayer
 
         this.x += this.dx;
         this.y += this.dy;
+    }
+
+    public void reactToCollision(double otherX, double otherY)
+    {
+        double forceAngle = Math.atan2(this.y - otherY, this.x - otherX);
+        double inverseAngle = this.angle + Math.PI;
+        if(inverseAngle > forceAngle)
+        {
+            this.setAngle(forceAngle - (inverseAngle - forceAngle));
+        }
+        else
+        {
+            this.setAngle(forceAngle + (forceAngle - inverseAngle));
+        }
     }
 }
