@@ -100,7 +100,7 @@ public class FootballGameManager
                 if(areColliding(p1, p2))
                 {
                     //collisionReaction(p1, p2);
-                    collide(p1, p2);
+                    collideRB((RandomBouncer)p1, (RandomBouncer)p2);
                 }
             }
         }
@@ -115,7 +115,7 @@ public class FootballGameManager
                 if(areColliding(p1, p2))
                 {
                     //collisionReaction(p1, p2);
-                    collide(p1, p2);
+                    collideRB((RandomBouncer)p1, (RandomBouncer)p2);
                 }
             }
         }
@@ -130,7 +130,7 @@ public class FootballGameManager
                 if(areColliding(p1, p2))
                 {
 					//collisionReaction(p1, p2);
-                    collide(p1, p2);
+                    collideRB((RandomBouncer)p1, (RandomBouncer)p2);
                 }
             }
         }
@@ -195,6 +195,13 @@ public class FootballGameManager
         }
         fp1.setTarget(targetXP1, targetYP1);
         fp2.setTarget(targetXP2, targetYP2);
+    }
+
+    // Another attempt, which calls the function in RandomBouncer
+    public void collideRB(RandomBouncer rb1, RandomBouncer rb2)
+    {
+        rb1.reactToCollision(rb2.getX(), rb2.getY());
+        rb2.reactToCollision(rb1.getX(), rb1.getY());
     }
 }
 
