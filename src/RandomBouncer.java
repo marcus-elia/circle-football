@@ -5,8 +5,6 @@ import java.awt.*;
 // targeting coordinates.
 public class RandomBouncer extends FootballPlayer
 {
-    private double radius;
-    private FootballGameManager manager;
 
     RandomBouncer(FootballGameManager inputManager,
                   double inputX, double inputY, ID id, double radius, Color color, double speed)
