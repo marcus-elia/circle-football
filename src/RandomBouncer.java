@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
 
 // This class is just a football player that starts moving on a random
 // direction, and then just bounces around. It does not do things with
@@ -39,6 +41,17 @@ public class RandomBouncer extends FootballPlayer
         this.angle = Math.atan2(this.dy, this.dx);
         this.x += this.dx;
         this.y += this.dy;
+    }
+
+    public void render(Graphics2D g2d)
+    {
+        g2d.setColor(this.color);
+        Shape circle = new Ellipse2D.Double(this.x - radius, this.y - radius, radius * 2, radius * 2);
+        g2d.fill(circle);
+
+        // For debugging purposes, draw a white line showing which way the player is facing
+        g2d.setColor(Color.WHITE);
+        g2d.draw(new Line2D.Double(this.x, this.y, this.x + 10*Math.cos(this.angle), this.y + 10*Math.sin(this.angle)));
     }
 
     public void reactToCollision(double otherX, double otherY)
