@@ -34,7 +34,8 @@ public class FootballGameManager
         {
             randomX = Math.random()*spawnableWidth + 2*this.playerRadius;
             randomY = Math.random()*spawnableHeight + 2*this.playerRadius;
-            players.add(new FootballPlayer(this, randomX, randomY, ID.Player, this.playerRadius, color, 2));
+            //players.add(new FootballPlayer(this, randomX, randomY, ID.Player, this.playerRadius, color, 2));
+            players.add(new RandomBouncer(this, randomX, randomY, ID.Player, this.playerRadius, color, 2));
         }
 
         return players;
