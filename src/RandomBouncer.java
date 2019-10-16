@@ -13,6 +13,8 @@ public class RandomBouncer extends FootballPlayer
     {
         super(inputManager, inputX, inputY, id, radius, color, speed);
         this.setAngle(Math.random() * 2*Math.PI);
+        this.radius = radius;
+        this.manager = inputManager;
     }
 
     public void tick()
@@ -25,5 +27,8 @@ public class RandomBouncer extends FootballPlayer
         {
             this.dy = -this.dy;
         }
+
+        this.x += this.dx;
+        this.y += this.dy;
     }
 }
