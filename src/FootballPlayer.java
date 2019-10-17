@@ -187,12 +187,12 @@ public class FootballPlayer extends GameObject
 			if(this.whichTeam == Team.left)
 			{
 				this.targetX = this.manager.getWidth() / 12.0;
-				this.targetY = this.manager.getHeight() * (this.teamIndex + 1.0) / 7;
+				this.targetY = this.manager.getHeight() * (this.teamIndex + 1.0) / 6;
 			}
 			else
 			{
 				this.targetX = this.manager.getWidth() - this.manager.getWidth() / 12.0;
-				this.targetY = this.manager.getHeight() * (this.teamIndex + 1.0) / 7;
+				this.targetY = this.manager.getHeight() * (this.teamIndex + 1.0) / 6;
 			}
 		}
 		this.setAngle();
