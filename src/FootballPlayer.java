@@ -65,13 +65,16 @@ public class FootballPlayer extends GameObject
 		{
 			this.setX(this.getX() + this.getDX());
 			this.setY(this.getY() + this.getDY());
-		} else
+		}
+		else
 		{
 			this.setX(targetX);
 			this.setY(targetY);
 			this.newRandomTarget();
 			this.setAngle();
 		}
+
+		this.bounceOffWalls();
     }
 
     public void render(Graphics2D g2d)
@@ -155,15 +158,73 @@ public class FootballPlayer extends GameObject
 		return this.angle;
 	}
 
+	// =====================================
+	//
+	//    Collision Reaction and Bouncing
+	//
+	// =====================================
+
 	public void startBouncing()
 	{
 		this.isBouncing = true;
 		this.curBounceTime = 0;
 	}
 
+	// Returns the difference between angle1 and angle2 between -Pi and Pi.
+	// For example, trueAngleDifference(Pi/2, 0) = -Pi/2
+	//              trueAngleDifference(0, Pi/2) = Pi/2
+	//              trueAngleDifference(0, 3Pi/2) = -Pi/2
+	//              trueAngleDifference(3Pi/2, 0) = Pi/2
+	public double trueAngleDifference(double angle1, double angle2)
+	{
+		double difference = angle2 - angle1;
+		if(difference > Math.PI)
+		{
+			return difference - 2*Math.PI;
+		}
+		if(difference < -Math.PI)
+		{
+			return difference + 2*Math.PI;
+		}
+		return difference;
+	}
+
+	public void reactToCollision(double otherX, double otherY)
+	{
+		double forceAngle = Math.atan2(this.y - otherY, this.x - otherX);
+		double inverseAngle = this.angle + Math.PI;
+		double difference = this.trueAngleDifference(forceAngle, inverseAngle);
+		this.setAngle(forceAngle - difference);
+	}
 	public boolean isCollided(FootballPlayer otherPlayer)
 	{
 		return FootballPlayer.distance(this.x, this.y, otherPlayer.getX(), otherPlayer.getY()) < 2*this.radius;
+	}
+
+	// Checks if this is touching a wall, and changes the velocity components accordingly
+	public void bounceOffWalls()
+	{
+		if(this.x < this.radius) // hitting the left
+		{
+			this.x = this.radius;
+			this.dx = -this.dx;
+		}
+		else if(this.x > this.manager.getWidth() - this.radius) // hitting the right
+		{
+			this.x = this.manager.getWidth() - this.radius;
+			this.dx = -this.dx;
+		}
+		if(this.y < this.radius) // hitting the top
+		{
+			this.y = this.radius;
+			this.dy = -this.dy;
+		}
+		else if(this.y > this.manager.getHeight() - this.radius) // hitting the bottom
+		{
+			this.y = this.manager.getHeight() - this.radius;
+			this.dy = -this.dy;
+		}
+		this.angle = Math.atan2(this.dy, this.dx);
 	}
 
 }
