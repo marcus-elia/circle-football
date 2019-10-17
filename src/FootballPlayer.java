@@ -81,13 +81,13 @@ public class FootballPlayer extends GameObject
                 {
                     if (FootballPlayer.distance(this.x, this.y, targetX, targetY) > this.speed)
                     {
-                        this.setX(this.getX() + this.getDX());
-                        this.setY(this.getY() + this.getDY());
+                        this.x += this.dx;
+                        this.y += this.dy;
                     }
                     else
                     {
-                        this.setX(targetX);
-                        this.setY(targetY);
+                        this.x = this.targetX;
+                        this.y = this.targetY;
                         this.isInPosition = true;
                     }
                 }
@@ -236,6 +236,7 @@ public class FootballPlayer extends GameObject
 		double inverseAngle = this.angle + Math.PI;
 		double difference = this.trueAngleDifference(forceAngle, inverseAngle);
 		this.setAngle(forceAngle - difference);
+        this.startBouncing();
 	}
 	public boolean isCollided(FootballPlayer otherPlayer)
 	{
@@ -249,21 +250,25 @@ public class FootballPlayer extends GameObject
 		{
 			this.x = this.radius;
 			this.dx = -this.dx;
+			this.startBouncing();
 		}
 		else if(this.x > this.manager.getWidth() - this.radius) // hitting the right
 		{
 			this.x = this.manager.getWidth() - this.radius;
 			this.dx = -this.dx;
+            this.startBouncing();
 		}
 		if(this.y < this.radius) // hitting the top
 		{
 			this.y = this.radius;
 			this.dy = -this.dy;
+            this.startBouncing();
 		}
 		else if(this.y > this.manager.getHeight() - this.radius) // hitting the bottom
 		{
 			this.y = this.manager.getHeight() - this.radius;
 			this.dy = -this.dy;
+            this.startBouncing();
 		}
 		this.angle = Math.atan2(this.dy, this.dx);
 	}
