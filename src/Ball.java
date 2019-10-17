@@ -60,4 +60,9 @@ public class Ball extends GameObject
         this.dx = this.speed * Math.cos(this.angle);
         this.dy = this.speed * Math.sin(this.angle);
     }
+    public void setAngle(double angle)
+    {
+        this.angle = angle;
+        this.setDxDy();
+    }
 }
