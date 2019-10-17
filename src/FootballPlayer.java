@@ -44,8 +44,7 @@ public class FootballPlayer extends GameObject
         this.rand = new Random();
         this.color = color;
         this.speed = speed;
-        this.newRandomTarget();
-        this.setAngle();
+        this.setPositionForPlay();
 
         this.isBouncing = false;
         this.curBounceTime = 0;
@@ -75,18 +74,25 @@ public class FootballPlayer extends GameObject
 		// Otherwise, move toward the target
 		else
 		{
-			if (FootballPlayer.distance(this.x, this.y, targetX, targetY) > this.speed)
-			{
-				this.setX(this.getX() + this.getDX());
-				this.setY(this.getY() + this.getDY());
-			}
-			else
-			{
-				this.setX(targetX);
-				this.setY(targetY);
-				this.newRandomTarget();
-				this.setAngle();
-			}
+		    // If this is pre-play, go line up
+		    if(!this.manager.getInProgress())
+            {
+                if(!this.isInPosition)
+                {
+                    if (FootballPlayer.distance(this.x, this.y, targetX, targetY) > this.speed)
+                    {
+                        this.setX(this.getX() + this.getDX());
+                        this.setY(this.getY() + this.getDY());
+                    }
+                    else
+                    {
+                        this.setX(targetX);
+                        this.setY(targetY);
+                        this.isInPosition = true;
+                    }
+                }
+            }
+
 		}
 
 
@@ -185,6 +191,7 @@ public class FootballPlayer extends GameObject
 				this.targetY = this.manager.getHeight() * (this.teamIndex + 1) / 7;
 			}
 		}
+		this.setAngle();
 	}
 
 	public double getAngle()
