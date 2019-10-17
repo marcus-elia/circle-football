@@ -1,6 +1,4 @@
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
@@ -116,6 +114,7 @@ public class FootballPlayer extends GameObject
         if(this.hasBall)
 		{
 			g2d.setColor(Color.YELLOW);
+			g2d.setStroke(new BasicStroke(2));
 			g2d.draw(circle);
 		}
     }
