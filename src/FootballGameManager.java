@@ -7,6 +7,8 @@ public class FootballGameManager
     private double playerRadius;
     private ArrayList<FootballPlayer> leftTeam;
     private ArrayList<FootballPlayer> rightTeam;
+    private GameStatus status;
+    private boolean playInProgress;
 
     private int endZoneWidth;
 
@@ -21,6 +23,9 @@ public class FootballGameManager
         this.rightTeam = createTeam(5, Color.BLUE);
         this.lineOfScrimmage = this.theGame.getWidth() / 2;
         this.endZoneWidth = 60;
+
+        this.status = GameStatus.LeftKickoff;
+        this.playInProgress = false;
     }
 
     public ArrayList<FootballPlayer> createTeam(int numPlayers, Color color)
