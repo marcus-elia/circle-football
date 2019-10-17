@@ -41,19 +41,21 @@ public class FootballPlayer extends GameObject
         super(inputX, inputY, id);
         this.manager = inputManager;
         this.radius = radius;
+		this.teamIndex = teamIndex;
+		this.whichTeam = whichTeam;
+		this.color = color;
+		this.speed = speed;
+
+		this.isInPosition = false;
         this.rand = new Random();
-        this.color = color;
-        this.speed = speed;
-        this.setPositionForPlay();
+
 
         this.isBouncing = false;
         this.curBounceTime = 0;
         this.recoveryTime = 50;
 
-        this.teamIndex = teamIndex;
-        this.isInPosition = false;
-        this.whichTeam = whichTeam;
 
+		this.setPositionForPlay();
     }
 
 
@@ -148,7 +150,7 @@ public class FootballPlayer extends GameObject
 		this.setAngle();
 	}
 
-	public void setTarget(double x, double y)
+	/*public void setTarget(double x, double y)
 	{
 		if (x > manager.getWidth() - 2*radius)
 		{
@@ -175,7 +177,7 @@ public class FootballPlayer extends GameObject
 			this.targetY = y;
 		}
 		this.setAngle();
-	}
+	}*/
 
 	public void setPositionForPlay()
 	{
@@ -212,7 +214,6 @@ public class FootballPlayer extends GameObject
 		this.isBouncing = true;
 		this.curBounceTime = 0;
 		this.isInPosition = false;
-		this.setPositionForPlay();
 	}
 
 	// Returns the difference between angle1 and angle2 between -Pi and Pi.
