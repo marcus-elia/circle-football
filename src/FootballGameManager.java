@@ -57,6 +57,31 @@ public class FootballGameManager
             curPlayer.tick();
         }
         this.checkCollisions();
+
+        // Game management
+        if(!this.playInProgress)
+        {
+            boolean allReady = true;
+            // Check if every player is ready for the play
+            for(FootballPlayer fp : leftTeam)
+            {
+                if(!fp.isInPosition())
+                {
+                    allReady = false;
+                }
+            }
+            for(FootballPlayer fp : rightTeam)
+            {
+                if(!fp.isInPosition())
+                {
+                    allReady = false;
+                }
+            }
+            if(allReady)
+            {
+                this.playInProgress = true;
+            }
+        }
     }
 
 
