@@ -18,14 +18,15 @@ public class FootballGameManager
     public FootballGameManager(Game inputGame, double inputRadius)
     {
         this.theGame = inputGame;
+        this.status = GameStatus.LeftKickoff;
+        this.playInProgress = false;
         this.playerRadius = inputRadius;
         this.leftTeam = createTeam(5, Team.left, Color.RED);
         this.rightTeam = createTeam(5, Team.right, Color.BLUE);
         this.lineOfScrimmage = this.getWidth() / 2;
         this.endZoneWidth = this.getWidth() / 12;
 
-        this.status = GameStatus.LeftKickoff;
-        this.playInProgress = false;
+
     }
 
     public ArrayList<FootballPlayer> createTeam(int numPlayers, Team whichTeam, Color color)
