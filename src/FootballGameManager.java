@@ -15,6 +15,7 @@ public class FootballGameManager
     // Stores the current line of scrimmage
     private double lineOfScrimmage;
     private Ball ball;
+    private boolean ballInAir;
 
     public FootballGameManager(Game inputGame, double inputRadius)
     {
@@ -27,6 +28,7 @@ public class FootballGameManager
         this.lineOfScrimmage = this.getWidth() / 2;
         this.endZoneWidth = this.getWidth() / 12;
         this.ball = new Ball(this, 0,0, ID.Ball);
+        this.ballInAir = false;
 
     }
 
@@ -86,6 +88,11 @@ public class FootballGameManager
                 this.startPlay();
             }
         }
+
+        if(this.ballInAir)
+        {
+            this.ball.tick();
+        }
     }
 
 
@@ -105,6 +112,11 @@ public class FootballGameManager
         for(FootballPlayer curPlayer : rightTeam)
         {
             curPlayer.render(g2d);
+        }
+
+        if(this.ballInAir)
+        {
+            this.ball.render(g2d);
         }
     }
 
