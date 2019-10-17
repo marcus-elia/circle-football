@@ -14,6 +14,7 @@ public class FootballGameManager
 
     // Stores the current line of scrimmage
     private double lineOfScrimmage;
+    private Ball ball;
 
     public FootballGameManager(Game inputGame, double inputRadius)
     {
@@ -25,7 +26,7 @@ public class FootballGameManager
         this.rightTeam = createTeam(5, Team.right, Color.BLUE);
         this.lineOfScrimmage = this.getWidth() / 2;
         this.endZoneWidth = this.getWidth() / 12;
-
+        this.ball = new Ball(this, 0,0, ID.Ball);
 
     }
 
@@ -254,6 +255,10 @@ public class FootballGameManager
     public double getPlayerRadius()
     {
         return this.playerRadius;
+    }
+    public Ball getBall()
+    {
+        return this.ball;
     }
 
     // Game management
