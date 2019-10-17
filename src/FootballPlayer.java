@@ -33,7 +33,10 @@ public class FootballPlayer extends GameObject
 	private int teamIndex;
     // If the player is in the correct position before the play starts
     private boolean isInPosition;
+    // left or right
     private Team whichTeam;
+
+    private boolean hasBall;
 
     public FootballPlayer(FootballGameManager inputManager, int teamIndex, Team whichTeam,
                           double inputX, double inputY, ID id, double radius, Color color, double speed)
@@ -47,6 +50,7 @@ public class FootballPlayer extends GameObject
 		this.speed = speed;
 
 		this.isInPosition = false;
+		this.hasBall = false;
         this.rand = new Random();
 
 
@@ -108,6 +112,12 @@ public class FootballPlayer extends GameObject
         g2d.setColor(this.color);
         Shape circle = new Ellipse2D.Double(this.x - radius, this.y - radius, radius * 2, radius * 2);
         g2d.fill(circle);
+
+        if(this.hasBall)
+		{
+			g2d.setColor(Color.YELLOW);
+			g2d.draw(circle);
+		}
     }
 
     public static double distance(double x1, double y1, double x2, double y2)
@@ -141,6 +151,11 @@ public class FootballPlayer extends GameObject
 			this.speed = 0;
 		}
 		setDxDy();
+	}
+
+	public void pickUpBall()
+	{
+		this.hasBall = true;
 	}
 
 	public void newRandomTarget()
@@ -182,7 +197,7 @@ public class FootballPlayer extends GameObject
 	public void setPositionForPlay()
 	{
 		GameStatus status = this.manager.getStatus();
-		if(status == GameStatus.LeftKickoff)
+		if(status == GameStatus.LeftKickoff || status == GameStatus.RightKickoff)
 		{
 			if(this.whichTeam == Team.left)
 			{
@@ -278,10 +293,14 @@ public class FootballPlayer extends GameObject
 		this.angle = Math.atan2(this.dy, this.dx);
 	}
 
-	// A getter
+	// Getters
 	public boolean isInPosition()
 	{
 		return this.isInPosition;
+	}
+	public boolean hasBall()
+	{
+		return this.hasBall;
 	}
 
 }
