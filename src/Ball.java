@@ -6,11 +6,13 @@ public class Ball extends GameObject
     private FootballGameManager manager;
     private double radius;
     private double angle;
+    private double speed;
     public Ball(FootballGameManager inputManager, double x, double y, ID id)
     {
         super(x, y, id);
         this.manager = inputManager;
         this.radius = 10;
+        this.speed = 3;
     }
 
     public void tick()
@@ -51,5 +53,11 @@ public class Ball extends GameObject
             this.dy = -this.dy;
         }
         this.angle = Math.atan2(this.dy, this.dx);
+    }
+
+    public void setDxDy()
+    {
+        this.dx = this.speed * Math.cos(this.angle);
+        this.dy = this.speed * Math.sin(this.angle);
     }
 }
