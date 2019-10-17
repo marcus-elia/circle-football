@@ -273,6 +273,11 @@ public class FootballGameManager
         return this.ball;
     }
 
+    public void setBallInAir(boolean b)
+    {
+        this.ballInAir = b;
+    }
+
     // Game management
     public void startPlay()
     {
