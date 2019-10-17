@@ -21,8 +21,8 @@ public class FootballGameManager
         this.playerRadius = inputRadius;
         this.leftTeam = createTeam(5, Color.RED);
         this.rightTeam = createTeam(5, Color.BLUE);
-        this.lineOfScrimmage = this.theGame.getWidth() / 2;
-        this.endZoneWidth = 60;
+        this.lineOfScrimmage = this.getWidth() / 2;
+        this.endZoneWidth = this.getWidth() / 12;
 
         this.status = GameStatus.LeftKickoff;
         this.playInProgress = false;
@@ -59,15 +59,6 @@ public class FootballGameManager
         this.checkCollisions();
     }
 
-    public double getWidth()
-	{
-    	return this.theGame.getWidth();
-	}
-
-	public double getHeight()
-	{
-    	return this.theGame.getHeight();
-	}
 
     public void render(Graphics2D g2d)
     {
@@ -207,6 +198,24 @@ public class FootballGameManager
     {
         rb1.reactToCollision(rb2.getX(), rb2.getY());
         rb2.reactToCollision(rb1.getX(), rb1.getY());
+    }
+
+    // Getters
+    public int getWidth()
+    {
+        return this.theGame.getWidth();
+    }
+    public int getHeight()
+    {
+        return this.theGame.getHeight();
+    }
+    public GameStatus getStatus()
+    {
+        return this.status;
+    }
+    public boolean getInProgress()
+    {
+        return this.playInProgress;
     }
 }
 
