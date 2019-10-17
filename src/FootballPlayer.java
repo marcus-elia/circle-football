@@ -29,7 +29,13 @@ public class FootballPlayer extends GameObject
 	// going toward the target
     private int recoveryTime;
 
-    public FootballPlayer(FootballGameManager inputManager,
+    // determines which spot the player will line up in
+	private int teamIndex;
+    // If the player is in the correct position before the play starts
+    private boolean isInPosition;
+    private Team whichTeam;
+
+    public FootballPlayer(FootballGameManager inputManager, int teamIndex, Team whichTeam,
                           double inputX, double inputY, ID id, double radius, Color color, double speed)
     {
         super(inputX, inputY, id);
@@ -45,6 +51,10 @@ public class FootballPlayer extends GameObject
         this.curBounceTime = 0;
         this.recoveryTime = 50;
 
+        this.teamIndex = teamIndex;
+        this.isInPosition = false;
+        this.whichTeam = whichTeam;
+
     }
 
 
@@ -59,20 +69,26 @@ public class FootballPlayer extends GameObject
 			{
 				this.isBouncing = false;
 			}
+			this.x += this.dx;
+			this.y += this.dy;
 		}
-
-		if (FootballPlayer.distance(this.getX(), this.getY(), targetX, targetY) > this.speed)
-		{
-			this.setX(this.getX() + this.getDX());
-			this.setY(this.getY() + this.getDY());
-		}
+		// Otherwise, move toward the target
 		else
 		{
-			this.setX(targetX);
-			this.setY(targetY);
-			this.newRandomTarget();
-			this.setAngle();
+			if (FootballPlayer.distance(this.x, this.y, targetX, targetY) > this.speed)
+			{
+				this.setX(this.getX() + this.getDX());
+				this.setY(this.getY() + this.getDY());
+			}
+			else
+			{
+				this.setX(targetX);
+				this.setY(targetY);
+				this.newRandomTarget();
+				this.setAngle();
+			}
 		}
+
 
 		this.bounceOffWalls();
     }
@@ -153,6 +169,24 @@ public class FootballPlayer extends GameObject
 		this.setAngle();
 	}
 
+	public void setPositionForPlay()
+	{
+		GameStatus status = this.manager.getStatus();
+		if(status == GameStatus.LeftKickoff)
+		{
+			if(this.whichTeam == Team.left)
+			{
+				this.targetX = this.manager.getWidth() - this.manager.getWidth() / 12;
+				this.targetY = this.manager.getHeight() * (this.teamIndex + 1) / 7;
+			}
+			else
+			{
+				this.targetX = this.manager.getWidth() / 12;
+				this.targetY = this.manager.getHeight() * (this.teamIndex + 1) / 7;
+			}
+		}
+	}
+
 	public double getAngle()
 	{
 		return this.angle;
@@ -225,6 +259,12 @@ public class FootballPlayer extends GameObject
 			this.dy = -this.dy;
 		}
 		this.angle = Math.atan2(this.dy, this.dx);
+	}
+
+	// A getter
+	public boolean isInPosition()
+	{
+		return this.isInPosition;
 	}
 
 }
