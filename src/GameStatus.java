@@ -1,7 +1,7 @@
 public enum GameStatus
 {
     LeftKickoff(),
-    RightKickOff(),
+    RightKickoff(),
     LeftPlay(),
     RightPlay();
 }
