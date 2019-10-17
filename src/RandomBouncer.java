@@ -8,37 +8,17 @@ import java.awt.geom.Line2D;
 public class RandomBouncer extends FootballPlayer
 {
 
-    RandomBouncer(FootballGameManager inputManager,
+    RandomBouncer(FootballGameManager inputManager, int teamIndex, Team whichTeam,
                   double inputX, double inputY, ID id, double radius, Color color, double speed)
     {
-        super(inputManager, inputX, inputY, id, radius, color, speed);
+        super(inputManager, teamIndex, whichTeam, inputX, inputY, id, radius, color, speed);
         this.setAngle(Math.random() * 2*Math.PI);
     }
 
     // This just bounces if it hits a wall.
     public void tick()
     {
-        if(this.x < this.radius) // hitting the left
-        {
-            this.x = this.radius;
-            this.dx = -this.dx;
-        }
-        else if(this.x > this.manager.getWidth() - this.radius) // hitting the right
-        {
-            this.x = this.manager.getWidth() - this.radius;
-            this.dx = -this.dx;
-        }
-        if(this.y < this.radius) // hitting the top
-        {
-            this.y = this.radius;
-            this.dy = -this.dy;
-        }
-        else if(this.y > this.manager.getHeight() - this.radius) // hitting the bottom
-        {
-            this.y = this.manager.getHeight() - this.radius;
-            this.dy = -this.dy;
-        }
-        this.angle = Math.atan2(this.dy, this.dx);
+        this.bounceOffWalls();
         this.x += this.dx;
         this.y += this.dy;
     }
@@ -54,7 +34,7 @@ public class RandomBouncer extends FootballPlayer
         g2d.draw(new Line2D.Double(this.x, this.y, this.x + 10*Math.cos(this.angle), this.y + 10*Math.sin(this.angle)));
     }
 
-    public void reactToCollision(double otherX, double otherY)
+    /*public void reactToCollision(double otherX, double otherY)
     {
         double forceAngle = Math.atan2(this.y - otherY, this.x - otherX);
         double inverseAngle = this.angle + Math.PI;
@@ -79,5 +59,5 @@ public class RandomBouncer extends FootballPlayer
             return difference + 2*Math.PI;
         }
         return difference;
-    }
+    }*/
 }
