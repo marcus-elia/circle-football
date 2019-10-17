@@ -19,8 +19,8 @@ public class FootballGameManager
     {
         this.theGame = inputGame;
         this.playerRadius = inputRadius;
-        this.leftTeam = createTeam(5, Color.RED);
-        this.rightTeam = createTeam(5, Color.BLUE);
+        this.leftTeam = createTeam(5, Team.left, Color.RED);
+        this.rightTeam = createTeam(5, Team.right, Color.BLUE);
         this.lineOfScrimmage = this.getWidth() / 2;
         this.endZoneWidth = this.getWidth() / 12;
 
@@ -28,7 +28,7 @@ public class FootballGameManager
         this.playInProgress = false;
     }
 
-    public ArrayList<FootballPlayer> createTeam(int numPlayers, Color color)
+    public ArrayList<FootballPlayer> createTeam(int numPlayers, Team whichTeam, Color color)
     {
         double randomX, randomY;
         // The player can spawn anywhere on the field such that it is not overlapping with the border
@@ -39,7 +39,8 @@ public class FootballGameManager
         {
             randomX = Math.random()*spawnableWidth + 2*this.playerRadius;
             randomY = Math.random()*spawnableHeight + 2*this.playerRadius;
-            players.add(new FootballPlayer(this, i, randomX, randomY, ID.Player, this.playerRadius, color, 2));
+            players.add(new FootballPlayer(this, i, whichTeam,
+                    randomX, randomY, ID.Player, this.playerRadius, color, 2));
             //players.add(new RandomBouncer(this, randomX, randomY, ID.Player, this.playerRadius, color, 2));
         }
 
