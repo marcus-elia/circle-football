@@ -251,6 +251,10 @@ public class FootballGameManager
     {
         return this.playInProgress;
     }
+    public double getPlayerRadius()
+    {
+        return this.playerRadius;
+    }
 
     // Game management
     public void startPlay()
