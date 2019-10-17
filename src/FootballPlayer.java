@@ -67,6 +67,8 @@ public class FootballPlayer extends GameObject
 			if(this.curBounceTime == this.recoveryTime)
 			{
 				this.isBouncing = false;
+				this.isInPosition = false;
+				this.setAngle();
 			}
 			this.x += this.dx;
 			this.y += this.dy;
@@ -190,8 +192,6 @@ public class FootballPlayer extends GameObject
 				this.targetX = this.manager.getWidth() - this.manager.getWidth() / 12.0;
 				this.targetY = this.manager.getHeight() * (this.teamIndex + 1.0) / 7;
 			}
-			System.out.println(this.targetX);
-			System.out.println(this.targetY);
 		}
 		this.setAngle();
 	}
