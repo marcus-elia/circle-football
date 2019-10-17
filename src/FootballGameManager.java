@@ -122,7 +122,8 @@ public class FootballGameManager
                 if(areColliding(p1, p2))
                 {
                     //collisionReaction(p1, p2);
-                    collideRB((RandomBouncer)p1, (RandomBouncer)p2);
+                    //collideRB((RandomBouncer)p1, (RandomBouncer)p2);
+                    collide(p1, p2);
                 }
             }
         }
@@ -137,7 +138,8 @@ public class FootballGameManager
                 if(areColliding(p1, p2))
                 {
                     //collisionReaction(p1, p2);
-                    collideRB((RandomBouncer)p1, (RandomBouncer)p2);
+                    //collideRB((RandomBouncer)p1, (RandomBouncer)p2);
+                    collide(p1, p2);
                 }
             }
         }
@@ -152,7 +154,8 @@ public class FootballGameManager
                 if(areColliding(p1, p2))
                 {
 					//collisionReaction(p1, p2);
-                    collideRB((RandomBouncer)p1, (RandomBouncer)p2);
+                    //collideRB((RandomBouncer)p1, (RandomBouncer)p2);
+                    collide(p1, p2);
                 }
             }
         }
@@ -176,6 +179,9 @@ public class FootballGameManager
 
 	public void collide(FootballPlayer fp1, FootballPlayer fp2)
     {
+        fp1.reactToCollision(fp2.getX(), fp2.getY());
+        fp2.reactToCollision(fp1.getX(), fp1.getY());
+
         /* double angleBetween = Math.atan2(fp2.getY() - fp1.getY(), fp2.getX() - fp1.getX());
         fp1.setAngle(reflectAngle(fp1.getAngle(), angleBetween));
         angleBetween += Math.PI;
@@ -189,7 +195,7 @@ public class FootballGameManager
 		//changing their target coordinates
 		//I still don't know why some players don't react to collisions. This method does get called when that happens.
         //Doesn't work if the signs of both dx and dy are the same, ie the players are headed in the same general direction
-        double targetXP1;
+        /*double targetXP1;
         double targetXP2;
         double targetYP1;
         double targetYP2;
@@ -216,7 +222,7 @@ public class FootballGameManager
             targetYP2 = fp2.getY() + fp2.getDY()*30;
         }
         fp1.setTarget(targetXP1, targetYP1);
-        fp2.setTarget(targetXP2, targetYP2);
+        fp2.setTarget(targetXP2, targetYP2);*/
     }
 
     // Another attempt, which calls the function in RandomBouncer
