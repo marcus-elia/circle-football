@@ -154,48 +154,15 @@ public class FootballGameManager
 
     public void checkCollisions()
     {
-        // Left colliding left
-        for(int i = 0; i < leftTeam.size(); i++)
+        for(int i = 0; i < allPlayers.size(); i++)
         {
-            for(int j = i + 1; j < leftTeam.size(); j++)
+            for(int j = i + 1; j < allPlayers.size(); j++)
             {
-                FootballPlayer p1 = leftTeam.get(i);
-                FootballPlayer p2 = leftTeam.get(j);
+                FootballPlayer p1 = allPlayers.get(i);
+                FootballPlayer p2 = allPlayers.get(j);
                 if(areColliding(p1, p2))
                 {
                     //collisionReaction(p1, p2);
-                    //collideRB((RandomBouncer)p1, (RandomBouncer)p2);
-                    collide(p1, p2);
-                }
-            }
-        }
-
-        // Left colliding right
-        for(int i = 0; i < leftTeam.size(); i++)
-        {
-            for(int j = 0; j < rightTeam.size(); j++)
-            {
-                FootballPlayer p1 = leftTeam.get(i);
-                FootballPlayer p2 = rightTeam.get(j);
-                if(areColliding(p1, p2))
-                {
-                    //collisionReaction(p1, p2);
-                    //collideRB((RandomBouncer)p1, (RandomBouncer)p2);
-                    collide(p1, p2);
-                }
-            }
-        }
-
-        // Right colliding right
-        for(int i = 0; i < rightTeam.size(); i++)
-        {
-            for(int j = i + 1; j < rightTeam.size(); j++)
-            {
-                FootballPlayer p1 = rightTeam.get(i);
-                FootballPlayer p2 = rightTeam.get(j);
-                if(areColliding(p1, p2))
-                {
-					//collisionReaction(p1, p2);
                     //collideRB((RandomBouncer)p1, (RandomBouncer)p2);
                     collide(p1, p2);
                 }
