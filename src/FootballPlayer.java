@@ -164,6 +164,28 @@ public class FootballPlayer extends GameObject
 		this.setAngle();
 	}
 
+	public void kickOff()
+	{
+		double yTarget = Math.random()*(this.manager.getHeight() - 4*this.radius) + 2*this.radius;
+		double xTarget;
+		if(this.whichTeam == Team.left)
+		{
+			xTarget = this.manager.getWidth() - this.manager.getWidth()/12.0;
+		}
+		else
+		{
+			xTarget = this.manager.getWidth()/12.0;
+		}
+		double kickAngle = Math.atan2(yTarget - this.y, xTarget - this.x);
+		Ball b = this.manager.getBall();
+		b.setX(this.x + Math.cos(kickAngle)*2*this.radius);
+		b.setY(this.y + Math.sin(kickAngle)*2*this.radius);
+		b.setAngle(kickAngle);
+		this.hasBall = false;
+		this.manager.setBallInAir(true);
+
+	}
+
 	/*public void setTarget(double x, double y)
 	{
 		if (x > manager.getWidth() - 2*radius)
@@ -301,5 +323,10 @@ public class FootballPlayer extends GameObject
 	{
 		return this.hasBall;
 	}
+	public double distanceToPoint(double otherX, double otherY)
+	{
+		return distance(this.x, this.y, otherX, otherY);
+	}
+
 
 }
