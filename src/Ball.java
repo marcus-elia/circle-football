@@ -17,6 +17,7 @@ public class Ball extends GameObject
 
     public void tick()
     {
+        this.bounceOffWalls();
         this.x += this.dx;
         this.y += this.dy;
     }
