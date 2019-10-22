@@ -9,6 +9,8 @@ public class FootballGameManager
     private ArrayList<FootballPlayer> rightTeam;
     private GameStatus status;
     private boolean playInProgress;
+    private int waitTime; // Once the players are in position, how long
+                          // we have waited before starting the play
 
     private int endZoneWidth;
 
@@ -29,6 +31,7 @@ public class FootballGameManager
         this.endZoneWidth = this.getWidth() / 12;
         this.ball = new Ball(this, 0,0, ID.Ball);
         this.ballInAir = false;
+        this.waitTime = 0;
 
     }
 
@@ -86,6 +89,17 @@ public class FootballGameManager
             {
                 this.playInProgress = true;
                 this.startPlay();
+            }
+        }
+        else
+        {
+            if(this.waitTime < 30)
+            {
+                this.waitTime++;
+            }
+            else
+            {
+                
             }
         }
 
@@ -281,6 +295,7 @@ public class FootballGameManager
     // Game management
     public void startPlay()
     {
+        this.waitTime = 0;
         if(this.status == GameStatus.LeftKickoff)
         {
             this.leftTeam.get(2).pickUpBall();
