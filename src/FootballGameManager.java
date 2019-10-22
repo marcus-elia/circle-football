@@ -8,7 +8,8 @@ public class FootballGameManager
     private ArrayList<FootballPlayer> leftTeam;
     private ArrayList<FootballPlayer> rightTeam;
     private GameStatus status;
-    private boolean playInProgress;
+    private boolean playersReady;   // if the players are all lined up
+    private boolean playInProgress; // if the play is actually happening
     private int waitTime; // Once the players are in position, how long
                           // we have waited before starting the play
 
@@ -23,6 +24,7 @@ public class FootballGameManager
     {
         this.theGame = inputGame;
         this.status = GameStatus.LeftKickoff;
+        this.playersReady = false;
         this.playInProgress = false;
         this.playerRadius = inputRadius;
         this.leftTeam = createTeam(5, Team.left, Color.RED);
@@ -69,27 +71,7 @@ public class FootballGameManager
         // Game management
         if(!this.playInProgress)
         {
-            boolean allReady = true;
-            // Check if every player is ready for the play
-            for(FootballPlayer fp : leftTeam)
-            {
-                if(!fp.isInPosition())
-                {
-                    allReady = false;
-                }
-            }
-            for(FootballPlayer fp : rightTeam)
-            {
-                if(!fp.isInPosition())
-                {
-                    allReady = false;
-                }
-            }
-            if(allReady)
-            {
-                this.playInProgress = true;
-                this.startPlay();
-            }
+
         }
         else
         {
@@ -99,7 +81,7 @@ public class FootballGameManager
             }
             else
             {
-                
+                this.actuallyStartPlay();
             }
         }
 
@@ -292,7 +274,34 @@ public class FootballGameManager
         this.ballInAir = b;
     }
 
-    // Game management
+    //  ====================================
+    //
+    //            Game management
+    //
+    //  ====================================
+
+    // set the playersReady boolean by checking if all players are ready or not
+    public void checkReadiness()
+    {
+        boolean allReady = true;
+        // Check if every player is ready for the play
+        for(FootballPlayer fp : leftTeam)
+        {
+            if(!fp.isInPosition())
+            {
+                allReady = false;
+            }
+        }
+        for(FootballPlayer fp : rightTeam)
+        {
+            if(!fp.isInPosition())
+            {
+                allReady = false;
+            }
+        }
+        this.playersReady = allReady;
+    }
+
     public void startPlay()
     {
         this.waitTime = 0;
@@ -303,6 +312,18 @@ public class FootballGameManager
         else if(this.status == GameStatus.RightKickoff)
         {
             this.rightTeam.get(2).pickUpBall();
+        }
+    }
+
+    public void actuallyStartPlay()
+    {
+        if(this.status == GameStatus.LeftKickoff)
+        {
+            this.leftTeam.get(2).kickOff();
+        }
+        else if(this.status == GameStatus.RightKickoff)
+        {
+            this.rightTeam.get(2).kickOff();
         }
     }
 }
