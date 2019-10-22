@@ -7,6 +7,9 @@ public class FootballGameManager
     private double playerRadius;
     private ArrayList<FootballPlayer> leftTeam;
     private ArrayList<FootballPlayer> rightTeam;
+
+    // Storing all the players is helpful for collision stuff
+    private ArrayList<FootballPlayer> allPlayers;
     private GameStatus status;
     private boolean playersReady;   // if the players are all lined up
     private boolean playInProgress; // if the play is actually happening
@@ -27,8 +30,11 @@ public class FootballGameManager
         this.playersReady = false;
         this.playInProgress = false;
         this.playerRadius = inputRadius;
+
+        this.allPlayers = new ArrayList<FootballPlayer>();
         this.leftTeam = createTeam(5, Team.left, Color.RED);
         this.rightTeam = createTeam(5, Team.right, Color.BLUE);
+
         this.lineOfScrimmage = this.getWidth() / 2;
         this.endZoneWidth = this.getWidth() / 12;
         this.ball = new Ball(this, 0,0, ID.Ball);
@@ -36,6 +42,21 @@ public class FootballGameManager
         this.waitTime = 0;
 
     }
+
+    // Returns true if we can spawn a new player at the given position
+    // without overlapping with an existing player
+    public boolean isValidSpawnPosition(double potentialX, double potentialY)
+    {
+        for(FootballPlayer fp : this.allPlayers)
+        {
+            if(fp.distanceToPoint(potentialX, potentialY) <= 2*this.playerRadius)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public ArrayList<FootballPlayer> createTeam(int numPlayers, Team whichTeam, Color color)
     {
@@ -46,10 +67,20 @@ public class FootballGameManager
         ArrayList<FootballPlayer> players = new ArrayList<FootballPlayer>();
         for(int i = 0; i < numPlayers; i++)
         {
+            // Keep trying random coordinates until we get somewhere that works
             randomX = Math.random()*spawnableWidth + 2*this.playerRadius;
             randomY = Math.random()*spawnableHeight + 2*this.playerRadius;
+            while(!this.isValidSpawnPosition(randomX, randomY))
+            {
+                randomX = Math.random()*spawnableWidth + 2*this.playerRadius;
+                randomY = Math.random()*spawnableHeight + 2*this.playerRadius;
+            }
+
+            // Add the new player to the team
             players.add(new FootballPlayer(this, i, whichTeam,
                     randomX, randomY, ID.Player, this.playerRadius, color, 2));
+            // Add the new player to the list of all players
+            this.allPlayers.add(players.get(players.size() - 1));
             //players.add(new RandomBouncer(this, randomX, randomY, ID.Player, this.playerRadius, color, 2));
         }
 
