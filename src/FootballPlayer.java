@@ -98,6 +98,11 @@ public class FootballPlayer extends GameObject
                     }
                 }
             }
+		    // If we are in a play, play football
+		    else
+			{
+
+			}
 
 		}
 
@@ -164,6 +169,8 @@ public class FootballPlayer extends GameObject
 		this.setAngle();
 	}
 
+	// If this player has the ball before a kickoff, this function kicks the ball toward
+	// a random point on the opposing goal line
 	public void kickOff()
 	{
 		double yTarget = Math.random()*(this.manager.getHeight() - 4*this.radius) + 2*this.radius;
