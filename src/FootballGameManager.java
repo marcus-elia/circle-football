@@ -69,11 +69,11 @@ public class FootballGameManager
         this.checkCollisions();
 
         // Game management
-        if(!this.playInProgress)
+        if(!this.playInProgress && !this.playersReady)
         {
-
+            this.checkReadiness();
         }
-        else
+        else if(!this.playInProgress)
         {
             if(this.waitTime < 30)
             {
@@ -300,6 +300,10 @@ public class FootballGameManager
             }
         }
         this.playersReady = allReady;
+        if(allReady)
+        {
+            this.startPlay();
+        }
     }
 
     public void startPlay()
@@ -325,6 +329,7 @@ public class FootballGameManager
         {
             this.rightTeam.get(2).kickOff();
         }
+        this.playInProgress = true;
     }
 }
 
