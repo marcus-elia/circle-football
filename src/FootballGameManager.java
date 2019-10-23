@@ -260,6 +260,32 @@ public class FootballGameManager
         }
     }
 
+    // Returns the nearest opponent to the given player
+    public FootballPlayer findNearestOpponent(FootballPlayer fp)
+    {
+        double shortestDistance = 2*this.getWidth();
+        int indexOfClosest = 0;
+        ArrayList<FootballPlayer> otherTeam;
+        if(fp.getWhichTeam() == Team.left)
+        {
+            otherTeam = this.rightTeam;
+        }
+        else
+        {
+            otherTeam = this.leftTeam;
+        }
+        for(int i = 0; i < otherTeam.size(); i++)
+        {
+            double curDistance = fp.distanceToPoint(otherTeam.get(i).getX(), otherTeam.get(i).getY());
+            if(curDistance < shortestDistance)
+            {
+                shortestDistance = curDistance;
+                indexOfClosest = i;
+            }
+        }
+        return otherTeam.get(indexOfClosest);
+    }
+
     // Getters
     public int getWidth()
     {
