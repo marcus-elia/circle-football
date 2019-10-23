@@ -101,7 +101,10 @@ public class FootballPlayer extends GameObject
 		    // If we are in a play, play football
 		    else
 			{
-
+				// Call this every tick, since it depends on the ball's location
+				this.setTargetInPlay();
+				this.x += this.dx;
+				this.y += this.dy;
 			}
 
 		}
@@ -193,7 +196,7 @@ public class FootballPlayer extends GameObject
 
 	}
 
-	/*public void setTarget(double x, double y)
+	public void setTarget(double x, double y)
 	{
 		if (x > manager.getWidth() - 2*radius)
 		{
@@ -220,7 +223,7 @@ public class FootballPlayer extends GameObject
 			this.targetY = y;
 		}
 		this.setAngle();
-	}*/
+	}
 
 	public void setPositionForPlay()
 	{
@@ -239,6 +242,15 @@ public class FootballPlayer extends GameObject
 			}
 		}
 		this.setAngle();
+	}
+
+	// This is where we determine how the players act
+	public void setTargetInPlay()
+	{
+		if(!this.manager.isBallInAir())
+		{
+			this.setTarget(this.manager.getBall().getX(), this.manager.getBall().getY());
+		}
 	}
 
 	public double getAngle()
