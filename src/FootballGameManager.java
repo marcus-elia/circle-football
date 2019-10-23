@@ -266,6 +266,10 @@ public class FootballGameManager
     {
         return this.ball;
     }
+    public boolean isBallInAir()
+    {
+        return this.isBallInAir();
+    }
 
     public void setBallInAir(boolean b)
     {
