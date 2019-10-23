@@ -239,6 +239,15 @@ public class FootballPlayer extends GameObject
 		}
 	}
 
+	// Where the player goes to block for a teammate
+	// sets the target to be halfway between the nearest opponent and the ball carrier
+	public void setBlockingTarget()
+	{
+		FootballPlayer blockTarget = this.manager.findNearestOpponent(this);
+		FootballPlayer ballCarrier = this.manager.getBallCarrier();
+		this.setTarget((blockTarget.getX() + ballCarrier.getX())/2, (blockTarget.getY() + ballCarrier.getY())/2);
+	}
+
 	public void setPositionForPlay()
 	{
 		GameStatus status = this.manager.getStatus();
@@ -267,9 +276,22 @@ public class FootballPlayer extends GameObject
 		}
 		else
 		{
+			// If this player has the ball, run toward the endzone
 			if(this.hasBall)
 			{
 				this.targetOtherEndZone();
+			}
+			else
+			{
+				// If our team has the ball, go block
+				if(this.manager.getBallPossessingTeam() == this.whichTeam)
+				{
+					this.setBlockingTarget();
+				}
+				else
+				{
+					this.setTarget(this.manager.getBallCarrier().getX(), this.manager.getBallCarrier().getY());
+				}
 			}
 		}
 
@@ -278,6 +300,10 @@ public class FootballPlayer extends GameObject
 	public double getAngle()
 	{
 		return this.angle;
+	}
+	public Team getWhichTeam()
+	{
+		return this.whichTeam;
 	}
 
 	// =====================================
