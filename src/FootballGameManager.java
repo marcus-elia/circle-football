@@ -119,6 +119,7 @@ public class FootballGameManager
         if(this.ballInAir)
         {
             this.ball.tick();
+            this.checkPickUpBall();
         }
     }
 
@@ -239,6 +240,20 @@ public class FootballGameManager
     {
         rb1.reactToCollision(rb2.getX(), rb2.getY());
         rb2.reactToCollision(rb1.getX(), rb1.getY());
+    }
+
+    // This checks if any players can pickup the ball. If one can, it does
+    public void checkPickUpBall()
+    {
+        for(FootballPlayer fp : this.allPlayers)
+        {
+            if(fp.distanceToPoint(this.ball.getX(), this.ball.getY()) < 2*this.playerRadius)
+            {
+                fp.pickUpBall();
+                this.ballInAir = false;
+                return;
+            }
+        }
     }
 
     // Getters
