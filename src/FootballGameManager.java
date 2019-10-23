@@ -22,6 +22,7 @@ public class FootballGameManager
     private double lineOfScrimmage;
     private Ball ball;
     private boolean ballInAir;
+    private FootballPlayer ballCarrier;
 
     public FootballGameManager(Game inputGame, double inputRadius)
     {
@@ -251,6 +252,7 @@ public class FootballGameManager
             {
                 fp.pickUpBall();
                 this.ballInAir = false;
+                this.ballCarrier = fp;
                 return;
             }
         }
@@ -284,6 +286,10 @@ public class FootballGameManager
     public boolean isBallInAir()
     {
         return this.ballInAir;
+    }
+    public FootballPlayer getBallCarrier()
+    {
+        return this.ballCarrier;
     }
 
     public void setBallInAir(boolean b)
