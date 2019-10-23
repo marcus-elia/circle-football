@@ -225,6 +225,20 @@ public class FootballPlayer extends GameObject
 		this.setAngle();
 	}
 
+	// Sets the target of this player to be the opponent's endzone. The main purpose of this
+	// is for when this player has the ball
+	public void targetOtherEndZone()
+	{
+		if(this.whichTeam == Team.left)
+		{
+			this.setTarget(this.manager.getWidth()*11.0/12, this.y);
+		}
+		else
+		{
+			this.setTarget(this.manager.getWidth()*1.0/12, this.y);
+		}
+	}
+
 	public void setPositionForPlay()
 	{
 		GameStatus status = this.manager.getStatus();
@@ -247,10 +261,18 @@ public class FootballPlayer extends GameObject
 	// This is where we determine how the players act
 	public void setTargetInPlay()
 	{
-		if(!this.manager.isBallInAir())
+		if(this.manager.isBallInAir())
 		{
 			this.setTarget(this.manager.getBall().getX(), this.manager.getBall().getY());
 		}
+		else
+		{
+			if(this.hasBall)
+			{
+				this.targetOtherEndZone();
+			}
+		}
+
 	}
 
 	public double getAngle()
