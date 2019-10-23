@@ -23,6 +23,7 @@ public class FootballGameManager
     private Ball ball;
     private boolean ballInAir;
     private FootballPlayer ballCarrier;
+    private Team ballPossessingTeam;
 
     public FootballGameManager(Game inputGame, double inputRadius)
     {
@@ -253,6 +254,7 @@ public class FootballGameManager
                 fp.pickUpBall();
                 this.ballInAir = false;
                 this.ballCarrier = fp;
+                this.ballPossessingTeam = fp.getWhichTeam();
                 return;
             }
         }
@@ -290,6 +292,10 @@ public class FootballGameManager
     public FootballPlayer getBallCarrier()
     {
         return this.ballCarrier;
+    }
+    public Team getBallPossessingTeam()
+    {
+        return this.ballPossessingTeam;
     }
 
     public void setBallInAir(boolean b)
