@@ -338,8 +338,28 @@ public class FootballPlayer extends GameObject
 		return difference;
 	}
 
+	/*public double dotProduct(double vx, double vy, double ux, double uy)
+	{
+		return vx*ux + vy*uy;
+	}
+	public double projectionCoefficient(double vx, double vy, double ux, double uy)
+	{
+		if(vx == vy)
+		{
+			return 0;
+		}
+		return dotProduct(vx, vy, ux, uy) / dotProduct(vx, vy, vx, vy);
+	}*/
 	public void reactToCollision(double otherX, double otherY)
 	{
+		/*double forceAngle = Math.atan2(this.y - otherY, this.x - otherX);
+		double normalX = this.speed*Math.cos(forceAngle);
+		double normalY = this.speed*Math.sin(forceAngle);
+		double coef = projectionCoefficient(normalX, normalY, this.dx, this.dy);
+		this.dx = this.dx - 2*coef*normalX;
+		this.dy = this.dy - 2*coef*normalY;
+		this.angle = Math.atan2(this.dy, this.dx);*/
+
 		double forceAngle = Math.atan2(this.y - otherY, this.x - otherX);
 		double inverseAngle = this.angle + Math.PI;
 		double difference = this.trueAngleDifference(forceAngle, inverseAngle);
