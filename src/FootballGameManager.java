@@ -148,6 +148,27 @@ public class FootballGameManager
         {
             this.ball.render(g2d);
         }
+
+        // Print the status and score
+        if(!this.playInProgress && !this.playersReady)
+        {
+            String statusString;
+            switch(this.status)
+            {
+                case LeftKickoff :
+                    statusString = "Left Kickoff";
+                    break;
+
+                case RightKickoff :
+                    statusString = "Right Kickoff";
+                    break;
+                default:
+                    statusString = "Football Game";
+            }
+            g2d.setFont(new Font("Courier", Font.PLAIN, 18));
+            g2d.setColor(Color.WHITE);
+            g2d.drawString(statusString, this.getWidth()/2, this.getHeight()/2);
+        }
     }
 
     public boolean areColliding(FootballPlayer p1, FootballPlayer p2)
