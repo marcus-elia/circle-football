@@ -172,9 +172,13 @@ public class FootballGameManager
                 default:
                     statusString = "Football Game";
             }
-            g2d.setFont(new Font("Courier", Font.PLAIN, 18));
+            g2d.setFont(new Font("Courier", Font.PLAIN, 24));
             g2d.setColor(Color.WHITE);
-            g2d.drawString(statusString, this.getWidth()/2, this.getHeight()/2);
+            g2d.drawString(statusString, this.getWidth()/2 - 20, this.getHeight()/2);
+            g2d.setColor(Color.RED);
+            g2d.drawString(Integer.toString(this.leftScore), this.getWidth()/4, this.getHeight()/2);
+            g2d.setColor(Color.BLUE);
+            g2d.drawString(Integer.toString(this.rightScore), 3*this.getWidth()/4, this.getHeight()/2);
         }
     }
 
