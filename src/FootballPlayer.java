@@ -363,9 +363,15 @@ public class FootballPlayer extends GameObject
 		double forceAngle = Math.atan2(this.y - otherY, this.x - otherX);
 		double inverseAngle = this.angle + Math.PI;
 		double difference = this.trueAngleDifference(forceAngle, inverseAngle);
+
+		// Move them apart so they aren't overlapping
+		double overlap = 2*this.radius - this.distanceToPoint(otherX, otherY);
+		this.x += overlap*Math.cos(forceAngle);
+		this.y += overlap*Math.sin(forceAngle);
 		this.setAngle(forceAngle - difference);
         this.startBouncing();
 	}
+	
 	public boolean isCollided(FootballPlayer otherPlayer)
 	{
 		return FootballPlayer.distance(this.x, this.y, otherPlayer.getX(), otherPlayer.getY()) < 2*this.radius;
