@@ -231,11 +231,11 @@ public class FootballPlayer extends GameObject
 	{
 		if(this.whichTeam == Team.left)
 		{
-			this.setTarget(this.manager.getWidth()*11.0/12, this.y);
+			this.setTarget(this.manager.getWidth()*11.0/12 + this.radius + 2, this.y);
 		}
 		else
 		{
-			this.setTarget(this.manager.getWidth()*1.0/12, this.y);
+			this.setTarget(this.manager.getWidth()*1.0/12 - this.radius - 2, this.y);
 		}
 	}
 
@@ -371,7 +371,7 @@ public class FootballPlayer extends GameObject
 		this.setAngle(forceAngle - difference);
         this.startBouncing();
 	}
-	
+
 	public boolean isCollided(FootballPlayer otherPlayer)
 	{
 		return FootballPlayer.distance(this.x, this.y, otherPlayer.getX(), otherPlayer.getY()) < 2*this.radius;
