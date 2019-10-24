@@ -164,6 +164,10 @@ public class FootballPlayer extends GameObject
 	{
 		this.hasBall = true;
 	}
+	public void dropBall()
+	{
+		this.hasBall = false;
+	}
 
 	public void newRandomTarget()
 	{
