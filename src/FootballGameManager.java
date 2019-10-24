@@ -7,6 +7,8 @@ public class FootballGameManager
     private double playerRadius;
     private ArrayList<FootballPlayer> leftTeam;
     private ArrayList<FootballPlayer> rightTeam;
+    private int leftScore;
+    private int rightScore;
 
     // Storing all the players is helpful for collision stuff
     private ArrayList<FootballPlayer> allPlayers;
@@ -36,6 +38,8 @@ public class FootballGameManager
         this.allPlayers = new ArrayList<FootballPlayer>();
         this.leftTeam = createTeam(5, Team.left, Color.RED);
         this.rightTeam = createTeam(5, Team.right, Color.BLUE);
+        this.leftScore = 0;
+        this.rightScore = 0;
 
         this.lineOfScrimmage = this.getWidth() / 2;
         this.endZoneWidth = this.getWidth() / 12;
@@ -117,7 +121,10 @@ public class FootballGameManager
                 this.actuallyStartPlay();
             }
         }
-
+        else
+        {
+            this.checkEndZones();
+        }
         if(this.ballInAir)
         {
             this.ball.tick();
@@ -406,6 +413,47 @@ public class FootballGameManager
             this.rightTeam.get(2).kickOff();
         }
         this.playInProgress = true;
+    }
+
+    // If a player has the ball in the endzone, do either a touchdown or safety
+    public void checkEndZones()
+    {
+        // If the ball is in the air, do not check
+        if(this.ballInAir)
+        {
+            return;
+        }
+        double x = this.ballCarrier.getX();
+        if(x <= this.getWidth()/12.0 - 2*this.playerRadius)
+        {
+            if(this.ballCarrier.getWhichTeam() == Team.right)
+            {
+                this.rightScore += 7;
+                this.status = GameStatus.RightKickoff;
+            }
+            else
+            {
+                this.rightScore += 2;
+                this.status = GameStatus.LeftKickoff;
+            }
+            this.playersReady = false;
+            this.playInProgress = false;
+        }
+        else if(x >= this.getWidth()*11.0/12 + 2*this.playerRadius)
+        {
+            if(this.ballCarrier.getWhichTeam() == Team.left)
+            {
+                this.leftScore += 7;
+                this.status = GameStatus.LeftKickoff;
+            }
+            else
+            {
+                this.leftScore += 2;
+                this.status = GameStatus.RightKickoff;
+            }
+            this.playersReady = false;
+            this.playInProgress = false;
+        }
     }
 }
 
