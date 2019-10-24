@@ -421,5 +421,9 @@ public class FootballPlayer extends GameObject
 		return distance(this.x, this.y, otherX, otherY);
 	}
 
+	public void setInPosition(boolean b)
+	{
+		this.isInPosition = b;
+	}
 
 }
