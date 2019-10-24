@@ -417,11 +417,13 @@ public class FootballGameManager
 
     public void endPlay()
     {
+        this.ballCarrier.dropBall();
         this.playersReady = false;
         this.playInProgress = false;
         for(FootballPlayer fp : this.allPlayers)
         {
             fp.setInPosition(false);
+            fp.setPositionForPlay();
         }
     }
 
@@ -460,6 +462,7 @@ public class FootballGameManager
                 this.leftScore += 2;
                 this.status = GameStatus.RightKickoff;
             }
+
             this.endPlay();
         }
     }
