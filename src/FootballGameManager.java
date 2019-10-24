@@ -415,6 +415,16 @@ public class FootballGameManager
         this.playInProgress = true;
     }
 
+    public void endPlay()
+    {
+        this.playersReady = false;
+        this.playInProgress = false;
+        for(FootballPlayer fp : this.allPlayers)
+        {
+            fp.setInPosition(false);
+        }
+    }
+
     // If a player has the ball in the endzone, do either a touchdown or safety
     public void checkEndZones()
     {
@@ -436,8 +446,7 @@ public class FootballGameManager
                 this.rightScore += 2;
                 this.status = GameStatus.LeftKickoff;
             }
-            this.playersReady = false;
-            this.playInProgress = false;
+            this.endPlay();
         }
         else if(x >= this.getWidth()*11.0/12 + 2*this.playerRadius)
         {
@@ -451,8 +460,7 @@ public class FootballGameManager
                 this.leftScore += 2;
                 this.status = GameStatus.RightKickoff;
             }
-            this.playersReady = false;
-            this.playInProgress = false;
+            this.endPlay();
         }
     }
 }
