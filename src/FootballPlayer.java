@@ -404,6 +404,16 @@ public class FootballPlayer extends GameObject
         this.startBouncing();
 	}
 
+	// To just bounce away from a point, not assuming we are overlapping with another Player
+	public void bounceAway(double otherX, double otherY)
+	{
+		double forceAngle = Math.atan2(this.y - otherY, this.x - otherX);
+		double inverseAngle = this.angle + Math.PI;
+		double difference = this.trueAngleDifference(forceAngle, inverseAngle);
+		this.setAngle(forceAngle - difference);
+		this.startBouncing();
+	}
+
 	public boolean isCollided(FootballPlayer otherPlayer)
 	{
 		return FootballPlayer.distance(this.x, this.y, otherPlayer.getX(), otherPlayer.getY()) < 2*this.radius;
