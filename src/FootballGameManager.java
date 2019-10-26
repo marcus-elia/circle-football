@@ -304,7 +304,7 @@ public class FootballGameManager
     {
         for(FootballPlayer fp : this.allPlayers)
         {
-            fp.reactToCollision(x, y);
+            fp.bounceAway(x, y);
         }
     }
 
