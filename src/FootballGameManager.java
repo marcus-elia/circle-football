@@ -186,6 +186,12 @@ public class FootballGameManager
                 case RightKickoff :
                     statusString = "Right Kickoff";
                     break;
+                case LeftPlay :
+                    statusString = this.downString() + " for Left";
+                    break;
+                case RightPlay :
+                    statusString = this.downString() + " for Right";
+                    break;
                 default:
                     statusString = "Football Game";
             }
@@ -375,6 +381,25 @@ public class FootballGameManager
     public double getLineOfScrimmage()
     {
         return this.lineOfScrimmage;
+    }
+    public String downString()
+    {
+        if(this.down == 1)
+        {
+            return "1st Down";
+        }
+        else if(this.down == 2)
+        {
+            return "2nd Down";
+        }
+        else if(this.down == 3)
+        {
+            return "3rd Down";
+        }
+        else
+        {
+            return "4th Down";
+        }
     }
 
     public void setBallInAir(boolean b)
