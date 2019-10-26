@@ -56,8 +56,7 @@ public class FootballPlayer extends GameObject
         this.curBounceTime = 0;
         this.recoveryTime = 50;
 
-
-		this.setPositionForPlay();
+        this.setPositionForPlay();
     }
 
 
@@ -68,7 +67,8 @@ public class FootballPlayer extends GameObject
 		if(this.isBouncing)
 		{
 			this.curBounceTime++;
-			if(this.curBounceTime == this.recoveryTime)
+			if(this.curBounceTime == this.recoveryTime ||
+					(!this.manager.getInProgress() && this.curBounceTime == 5))
 			{
 				this.isBouncing = false;
 				this.isInPosition = false;
