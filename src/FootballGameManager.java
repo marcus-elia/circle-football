@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 public class FootballGameManager
@@ -157,6 +158,19 @@ public class FootballGameManager
         if(this.ballInAir)
         {
             this.ball.render(g2d);
+        }
+
+        if(this.status == GameStatus.LeftPlay)
+        {
+            g2d.setColor(Color.RED);
+            Line2D.Double LoS = new Line2D.Double(this.lineOfScrimmage, 0, this.lineOfScrimmage, height);
+            g2d.draw(LoS);
+        }
+        else if(this.status == GameStatus.RightPlay)
+        {
+            g2d.setColor(Color.BLUE);
+            Line2D.Double LoS = new Line2D.Double(this.lineOfScrimmage, 0, this.lineOfScrimmage, height);
+            g2d.draw(LoS);
         }
 
         // Print the status and score
@@ -357,6 +371,10 @@ public class FootballGameManager
     public Team getBallPossessingTeam()
     {
         return this.ballPossessingTeam;
+    }
+    public double getLineOfScrimmage()
+    {
+        return this.lineOfScrimmage;
     }
 
     public void setBallInAir(boolean b)
