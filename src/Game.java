@@ -24,9 +24,9 @@ public class Game extends Canvas implements Runnable
     {
 
         gameManager = new FootballGameManager(this, 10);
+        this.addMouseListener(new MouseInput(gameManager));
         new Window(WIDTH, HEIGHT, "Circle Football", this);
         //this.addKeyListener(new KeyInput(handler));
-
     }
 
     public synchronized void start()
@@ -72,7 +72,7 @@ public class Game extends Canvas implements Runnable
             if(System.currentTimeMillis() - timer > 1000)
             {
                 timer += 1000;
-                System.out.println("FPS: "+ frames);
+                //System.out.println("FPS: "+ frames);
                 frames = 0;
             }
 
