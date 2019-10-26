@@ -406,6 +406,10 @@ public class FootballGameManager
     {
         this.ballInAir = b;
     }
+    public void setBallCarrier(FootballPlayer fp)
+    {
+        this.ballCarrier = fp;
+    }
 
     //  ====================================
     //
@@ -442,11 +446,11 @@ public class FootballGameManager
     public void startPlay()
     {
         this.waitTime = 0;
-        if(this.status == GameStatus.LeftKickoff)
+        if(this.status == GameStatus.LeftKickoff || this.status == GameStatus.LeftPlay)
         {
             this.leftTeam.get(2).pickUpBall();
         }
-        else if(this.status == GameStatus.RightKickoff)
+        else if(this.status == GameStatus.RightKickoff || this.status == GameStatus.RightPlay)
         {
             this.rightTeam.get(2).pickUpBall();
         }
@@ -558,7 +562,6 @@ public class FootballGameManager
         if(y < this.playerRadius + 2 || y > this.getHeight() - this.playerRadius - 2)
         {
             this.lineOfScrimmage = this.ballCarrier.getX();
-            this.ballCarrier.dropBall();
 
             // If we had a kickoff, start 1st down
             if(this.status == GameStatus.LeftKickoff || this.status == GameStatus.RightKickoff)
