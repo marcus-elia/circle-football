@@ -163,6 +163,7 @@ public class FootballPlayer extends GameObject
 	public void pickUpBall()
 	{
 		this.hasBall = true;
+		this.manager.setBallCarrier(this);
 	}
 	public void dropBall()
 	{
