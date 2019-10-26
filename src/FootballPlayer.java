@@ -232,15 +232,28 @@ public class FootballPlayer extends GameObject
 
 	// Sets the target of this player to be the opponent's endzone. The main purpose of this
 	// is for when this player has the ball
-	public void targetOtherEndZone()
+	public void targetOtherEndZone(FootballPlayer nearestDefender)
 	{
+		double newTargetX;
 		if(this.whichTeam == Team.left)
 		{
-			this.setTarget(this.manager.getWidth() - 2*this.radius, this.y);
+			newTargetX = this.manager.getWidth() - 2*this.radius;
+			//this.setTarget(this.manager.getWidth() - 2*this.radius, this.y);
 		}
 		else
 		{
-			this.setTarget(2*this.radius, this.y);
+			newTargetX = 2*this.radius;
+			//this.setTarget(2*this.radius, this.y);
+		}
+		// Target either the top or bottom of the endzone depending on whether
+		// the nearest defender is above or below this
+		if(nearestDefender.getY() >= this.y)
+		{
+			this.setTarget(newTargetX, 2*this.radius);
+		}
+		else
+		{
+			this.setTarget(newTargetX, this.manager.getHeight() - 2*this.radius);
 		}
 	}
 
@@ -297,7 +310,8 @@ public class FootballPlayer extends GameObject
 			// If this player has the ball, run toward the endzone
 			if(this.hasBall)
 			{
-				this.targetOtherEndZone();
+				FootballPlayer nearestDefender = this.manager.findNearestOpponent(this);
+				this.targetOtherEndZone(nearestDefender);
 			}
 			else
 			{
