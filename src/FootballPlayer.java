@@ -272,12 +272,12 @@ public class FootballPlayer extends GameObject
 		{
 			if(this.whichTeam == Team.left)
 			{
-				this.targetX = this.manager.getLineOfScrimmage() - 2*this.radius;
+				this.targetX = this.manager.getLineOfScrimmage() - 4*this.radius;
 				this.targetY = this.manager.getHeight() * (this.teamIndex + 1.0) / 6;
 			}
 			else
 			{
-				this.targetX = this.manager.getLineOfScrimmage() + 2*this.radius;
+				this.targetX = this.manager.getLineOfScrimmage() + 4*this.radius;
 				this.targetY = this.manager.getHeight() * (this.teamIndex + 1.0) / 6;
 			}
 		}
