@@ -26,6 +26,7 @@ public class FootballGameManager
     private boolean ballInAir;
     private FootballPlayer ballCarrier;
     private Team ballPossessingTeam;
+    private int down; // 1st, 2nd, 3rd, 4th
 
     public FootballGameManager(Game inputGame, double inputRadius)
     {
@@ -468,6 +469,62 @@ public class FootballGameManager
             }
 
             this.endPlay();
+        }
+    }
+
+    // Simply return the opposite of the Team you input
+    public Team otherTeam(Team team)
+    {
+        if(team == Team.left)
+        {
+            return Team.right;
+        }
+        else
+        {
+            return Team.left;
+        }
+    }
+
+    // A simple helper function to set this GameManager's status to be either
+    // left play or right play
+    public void setPlay(Team team)
+    {
+        if(team == Team.left)
+        {
+            this.status = GameStatus.LeftPlay;
+        }
+        else
+        {
+            this.status = GameStatus.RightPlay;
+        }
+    }
+
+    // If the ball carrier is out of bounds, end the play
+    public void checkSidelines()
+    {
+        // If the ball is in the air, do not check
+        if(this.ballInAir)
+        {
+            return;
+        }
+        double y = this.ballCarrier.getY();
+
+        // If they are out
+        if(y < this.playerRadius + 2 || y > this.getHeight() - this.playerRadius - 2)
+        {
+            this.lineOfScrimmage = this.ballCarrier.getX();
+            this.ballCarrier.dropBall();
+
+            // If it's fourth down, the other team gets the ball
+            if(this.down == 4)
+            {
+                 this.ballPossessingTeam = this.otherTeam(this.ballPossessingTeam);
+                 this.down = 1;
+            }
+            else
+            {
+
+            }
         }
     }
 }
