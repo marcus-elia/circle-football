@@ -408,9 +408,7 @@ public class FootballPlayer extends GameObject
 	public void bounceAway(double otherX, double otherY)
 	{
 		double forceAngle = Math.atan2(this.y - otherY, this.x - otherX);
-		double inverseAngle = this.angle + Math.PI;
-		double difference = this.trueAngleDifference(forceAngle, inverseAngle);
-		this.setAngle(forceAngle - difference);
+		this.setAngle(forceAngle);
 		this.startBouncing();
 	}
 
