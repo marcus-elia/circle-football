@@ -300,6 +300,14 @@ public class FootballGameManager
         rb2.reactToCollision(rb1.getX(), rb1.getY());
     }
 
+    public void pushEveryone(int x, int y)
+    {
+        for(FootballPlayer fp : this.allPlayers)
+        {
+            fp.reactToCollision(x, y);
+        }
+    }
+
     // This checks if any players can pickup the ball. If one can, it does
     public void checkPickUpBall()
     {
