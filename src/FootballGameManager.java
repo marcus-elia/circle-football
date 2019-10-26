@@ -122,9 +122,11 @@ public class FootballGameManager
                 this.actuallyStartPlay();
             }
         }
+        // Check if the play is over
         else
         {
             this.checkEndZones();
+            this.checkSidelines();
         }
         if(this.ballInAir)
         {
@@ -520,11 +522,25 @@ public class FootballGameManager
             {
                  this.ballPossessingTeam = this.otherTeam(this.ballPossessingTeam);
                  this.down = 1;
+                 this.setPlay(this.ballPossessingTeam);
             }
             else
             {
-
+                // If no interception happened
+                if((this.status == GameStatus.LeftPlay && this.ballPossessingTeam == Team.left) ||
+                        (this.status == GameStatus.RightPlay && this.ballPossessingTeam == Team.right))
+                {
+                    this.down += 1;
+                }
+                // There was an interception
+                else
+                {
+                    this.ballPossessingTeam = this.otherTeam(this.ballPossessingTeam);
+                    this.down = 1;
+                    this.setPlay(this.ballPossessingTeam);
+                }
             }
+            this.endPlay();
         }
     }
 }
