@@ -517,13 +517,20 @@ public class FootballGameManager
             this.lineOfScrimmage = this.ballCarrier.getX();
             this.ballCarrier.dropBall();
 
+            // If we had a kickoff, start 1st down
+            if(this.status == GameStatus.LeftKickoff || this.status == GameStatus.RightKickoff)
+            {
+                this.down = 1;
+                this.setPlay(this.ballPossessingTeam);
+            }
             // If it's fourth down, the other team gets the ball
-            if(this.down == 4)
+            else if(this.down == 4)
             {
                  this.ballPossessingTeam = this.otherTeam(this.ballPossessingTeam);
                  this.down = 1;
                  this.setPlay(this.ballPossessingTeam);
             }
+            // If it wasn't 4th down
             else
             {
                 // If no interception happened
