@@ -6,6 +6,11 @@ public class MouseInput implements MouseListener
 
     private FootballGameManager manager;
 
+    public MouseInput(FootballGameManager manager)
+    {
+        this.manager = manager;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
