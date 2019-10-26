@@ -235,11 +235,11 @@ public class FootballPlayer extends GameObject
 	{
 		if(this.whichTeam == Team.left)
 		{
-			this.setTarget(this.manager.getWidth()*11.0/12 + this.radius + 2, this.y);
+			this.setTarget(this.manager.getWidth() - 2*this.radius, this.y);
 		}
 		else
 		{
-			this.setTarget(this.manager.getWidth()*1.0/12 - this.radius - 2, this.y);
+			this.setTarget(2*this.radius, this.y);
 		}
 	}
 
@@ -265,6 +265,19 @@ public class FootballPlayer extends GameObject
 			else
 			{
 				this.targetX = this.manager.getWidth() - this.manager.getWidth() / 12.0;
+				this.targetY = this.manager.getHeight() * (this.teamIndex + 1.0) / 6;
+			}
+		}
+		else if(status == GameStatus.LeftPlay || status == GameStatus.RightPlay)
+		{
+			if(this.whichTeam == Team.left)
+			{
+				this.targetX = this.manager.getLineOfScrimmage() - 2*this.radius;
+				this.targetY = this.manager.getHeight() * (this.teamIndex + 1.0) / 6;
+			}
+			else
+			{
+				this.targetX = this.manager.getLineOfScrimmage() + 2*this.radius;
 				this.targetY = this.manager.getHeight() * (this.teamIndex + 1.0) / 6;
 			}
 		}
