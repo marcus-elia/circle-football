@@ -153,6 +153,7 @@ public class FootballGameManager
         int height = this.theGame.getHeight();
         int width = this.theGame.getWidth();
         g2d.setColor(Color.WHITE);
+        g2d.setStroke(new BasicStroke(5));
         g2d.drawLine(this.endZoneWidth, 0, this.endZoneWidth, height);
         g2d.drawLine(width - this.endZoneWidth, 0, width - this.endZoneWidth, this.theGame.getHeight());
 
@@ -170,15 +171,18 @@ public class FootballGameManager
             this.ball.render(g2d);
         }
 
+        // Draw the line of scrimmage if a play if happening
         if(this.status == GameStatus.LeftPlay)
         {
             g2d.setColor(Color.RED);
+            g2d.setStroke(new BasicStroke(5));
             Line2D.Double LoS = new Line2D.Double(this.lineOfScrimmage, 0, this.lineOfScrimmage, height);
             g2d.draw(LoS);
         }
         else if(this.status == GameStatus.RightPlay)
         {
             g2d.setColor(Color.BLUE);
+            g2d.setStroke(new BasicStroke(5));
             Line2D.Double LoS = new Line2D.Double(this.lineOfScrimmage, 0, this.lineOfScrimmage, height);
             g2d.draw(LoS);
         }
@@ -227,7 +231,7 @@ public class FootballGameManager
         int i = this.timeSinceLastClick;
 
         // The color is dark green when not charged, and light green when charged
-        Color c = new Color(i, i + 155, i);
+        Color c = new Color(i, 2*i + 55, i);
 
         g2d.setColor(c);
         g2d.setStroke(new BasicStroke(10));
@@ -236,13 +240,37 @@ public class FootballGameManager
         double horizontalPercent = this.getWidth() / (2.0*this.getWidth() + this.getHeight())*100;
 
         double halfWidth = this.getWidth() / 2.0;
-        Line2D.Double leftBottom = new Line2D.Double(halfWidth, this.getHeight() - 3,
-            halfWidth - i/horizontalPercent*halfWidth, this.getHeight() - 3);
-        Line2D.Double rightBottom = new Line2D.Double(halfWidth, this.getHeight() - 3,
-                halfWidth + i/horizontalPercent*halfWidth, this.getHeight() - 3);
+
+        // Make the bottom lines
+        Line2D.Double leftBottom = new Line2D.Double(halfWidth, this.getHeight(),
+            halfWidth - i/horizontalPercent*halfWidth, this.getHeight());
+        Line2D.Double rightBottom = new Line2D.Double(halfWidth, this.getHeight(),
+                halfWidth + i/horizontalPercent*halfWidth, this.getHeight());
 
         g2d.draw(leftBottom);
         g2d.draw(rightBottom);
+
+        // The side lines
+        if(i > horizontalPercent)
+        {
+            Line2D.Double left = new Line2D.Double(0, this.getHeight(),
+                    0, this.getHeight() - (i-horizontalPercent)/(100-2*horizontalPercent)*this.getHeight());
+            Line2D.Double right = new Line2D.Double(this.getWidth(), this.getHeight(),
+                    this.getWidth(), this.getHeight() - (i-horizontalPercent)/(100-2*horizontalPercent)*this.getHeight());
+            g2d.draw(left);
+            g2d.draw(right);
+        }
+
+        // The top lines
+        if(i > 100 - horizontalPercent)
+        {
+            Line2D.Double leftTop = new Line2D.Double(0, 0,
+                    (i - (100 - horizontalPercent))/(horizontalPercent)*halfWidth, 0);
+            Line2D.Double rightTop = new Line2D.Double(this.getWidth(), 0,
+                    this.getWidth() - (i - (100 - horizontalPercent))/(horizontalPercent)*halfWidth, 0);
+            g2d.draw(leftTop);
+            g2d.draw(rightTop);
+        }
     }
 
 
