@@ -147,6 +147,8 @@ public class FootballGameManager
 
     public void render(Graphics2D g2d)
     {
+        this.drawClickRecharge(g2d);
+
         // Draw the goal lines
         int height = this.theGame.getHeight();
         int width = this.theGame.getWidth();
@@ -181,6 +183,8 @@ public class FootballGameManager
             g2d.draw(LoS);
         }
 
+
+
         // Print the status and score
         if(!this.playInProgress && !this.playersReady)
         {
@@ -212,7 +216,37 @@ public class FootballGameManager
             g2d.setColor(Color.BLUE);
             g2d.drawString(Integer.toString(this.rightScore), 3*this.getWidth()/4, this.getHeight()/2);
         }
+
+
     }
+
+    // Draw a line around the perimeter showing how close we are to being recharged
+    public void drawClickRecharge(Graphics2D g2d)
+    {
+        // For concise code
+        int i = this.timeSinceLastClick;
+
+        // The color is dark green when not charged, and light green when charged
+        Color c = new Color(i, i + 155, i);
+
+        g2d.setColor(c);
+        g2d.setStroke(new BasicStroke(10));
+
+        double semiperimeter = this.getWidth() + this.getHeight();
+        double horizontalPercent = this.getWidth() / (2.0*this.getWidth() + this.getHeight())*100;
+
+        double halfWidth = this.getWidth() / 2.0;
+        Line2D.Double leftBottom = new Line2D.Double(halfWidth, this.getHeight() - 3,
+            halfWidth - i/horizontalPercent*halfWidth, this.getHeight() - 3);
+        Line2D.Double rightBottom = new Line2D.Double(halfWidth, this.getHeight() - 3,
+                halfWidth + i/horizontalPercent*halfWidth, this.getHeight() - 3);
+
+        g2d.draw(leftBottom);
+        g2d.draw(rightBottom);
+    }
+
+
+
 
     public boolean areColliding(FootballPlayer p1, FootballPlayer p2)
     {
