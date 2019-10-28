@@ -29,6 +29,9 @@ public class FootballGameManager
     private Team ballPossessingTeam;
     private int down; // 1st, 2nd, 3rd, 4th
 
+    // How long since the user last clicked
+    private int timeSinceLastClick;
+
     public FootballGameManager(Game inputGame, double inputRadius)
     {
         this.theGame = inputGame;
@@ -97,6 +100,11 @@ public class FootballGameManager
 
     public void tick()
     {
+        // For mouse clicks
+        if(this.timeSinceLastClick < 100)
+        {
+            this.timeSinceLastClick++;
+        }
         for(FootballPlayer curPlayer : leftTeam)
         {
             curPlayer.tick();
@@ -390,6 +398,10 @@ public class FootballGameManager
     public double getLineOfScrimmage()
     {
         return this.lineOfScrimmage;
+    }
+    public int getTimeSinceLastClick()
+    {
+        return this.timeSinceLastClick;
     }
     public String downString()
     {
