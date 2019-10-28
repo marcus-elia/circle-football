@@ -431,6 +431,10 @@ public class FootballGameManager
     {
         this.ballCarrier = fp;
     }
+    public void setTimeSinceLastClick(int newTime)
+    {
+        this.timeSinceLastClick = newTime;
+    }
 
     //  ====================================
     //
