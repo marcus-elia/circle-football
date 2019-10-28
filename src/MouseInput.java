@@ -21,7 +21,11 @@ public class MouseInput implements MouseListener
     {
         int mx = e.getX();
         int my = e.getY();
-        manager.pushEveryone(mx, my);
+        if(manager.getTimeSinceLastClick() == 100)
+        {
+            manager.pushEveryone(mx, my);
+        }
+        manager.setTimeSinceLastClick(0);
     }
 
     @Override
